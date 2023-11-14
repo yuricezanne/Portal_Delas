@@ -23,5 +23,6 @@ namespace Core.Models
 
         [StringLength(22)]
         public string UserPhone { get; set; }
+        public int UserInfoId { get; set; }
     }
 }
