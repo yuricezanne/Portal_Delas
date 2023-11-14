@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Models
 {
@@ -9,14 +11,21 @@ namespace Core.Models
 
         public DateTime JobCreationDate { get; set; }
 
-        public DateTime JobDate { get; set; }
+        public string JobTitle { get; set; }
 
         [MaxLength(1024)]
         public string JobDescription { get; set; }
 
         [MaxLength(1024)]
         public string JobAddress { get; set; }
+        [ForeignKey("JobCategory")]
+        public int JobCategoryID { get; set; }
 
-        public string JobCategory { get; set; }
+        [ForeignKey("User")]
+        public int UserID { get; set; }
+
+        public virtual UserInfo User { get; set; }
+
+        public bool IsInativo { get; set; }
     }
 }

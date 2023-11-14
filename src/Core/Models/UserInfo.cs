@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Models
 {
@@ -22,6 +24,9 @@ namespace Core.Models
         public string? CompanyName { get; set; }
 
         [StringLength(22)]
-        public string UserPhone { get; set; }
+        public string? UserPhone { get; set; }
+
+        public virtual ICollection<JobInfo> Jobs { get; set; }
     }
+
 }

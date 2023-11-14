@@ -18,5 +18,7 @@ namespace Core.Models
         public string EventAddress { get; set; }
 
         public string EventType { get; set; }
+
+        public bool IsInativo { get; set; }
     }
 }
