@@ -12,5 +12,6 @@ namespace Core.Data
         public DbSet<EventInfo> Events { get; set; }
         public DbSet<UserInfo> Users { get; set; }
         public DbSet<JobInfo> Jobs { get; set; }
+        
     }
 }

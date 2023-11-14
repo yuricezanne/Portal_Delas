@@ -6,7 +6,7 @@ namespace Core.Models
     {
         [Key]
         public int EventID { get; set; }
-
+        public int EventId { get; internal set; }
         public DateTime EventCreationDate { get; set; }
 
         public DateTime EventDate { get; set; }
@@ -18,5 +18,7 @@ namespace Core.Models
         public string EventAddress { get; set; }
 
         public string EventType { get; set; }
+        public string EventTitle { get; set; }
+        public bool IsInativo { get; set; }
     }
 }

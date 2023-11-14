@@ -18,5 +18,7 @@ namespace Core.Models
         public string JobAddress { get; set; }
 
         public string JobCategory { get; set; }
+        public string JobTitle { get;  set; }
+        public bool IsInativo { get;  set; }
     }
 }
