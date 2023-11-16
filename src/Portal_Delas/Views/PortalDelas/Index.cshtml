@@ -1,0 +1,101 @@
+﻿@using Core.Models;
+@using Portal_Delas.Models;
+@using Core.Data;
+@model Views_PortalDelas_Create
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+    ViewData["Title"] = "Details";
+
+}
+
+
+<div class="text-center">
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Create New</a>
+    </p>
+
+    @if (Model.Any(item => !item.IsDone))
+    {
+
+        <h5>To-Do</h5>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Done</th>
+                    <th>Added Date</th>
+                    <th>Title</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    if (!item.IsDone)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" checked="@item.IsDone" onclick="window.location.href='CheckTitle/@item.JobId'" />
+
+                            </td>
+                            <td>
+                                <span>@item.JobCreationDate</span>
+                            </td>
+                            <td>
+                                <span>@item.JobTitle</span>
+                            </td>
+                            @if (!item.IsDone)
+                            {
+                                <td class="actions">
+                                    <a asp-action="Edit" asp-route-id="@item.JobId" class="btn btn btn-primary">Edit</a>
+                                    <a asp-action="Details" asp-route-id="@item.JobId" class="btn btn btn-primary">Details</a>
+                                    <a asp-action="Delete" asp-route-id="@item.JobId" class="btn btn-danger">Delete</a>
+                                </td>
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+
+    @if (Model.Any(item => item.IsDone))
+    {
+        <h5>Done</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Done</th>
+                    <th>Finished Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    if (item.IsDone)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" checked="@item.IsDone" onclick="window.location.href='CheckTitle/@item.JobId'" />
+
+                            </td>
+                            <td>
+                                <span>@item.JobCreationDate</span>
+                            </td>
+                            <td>
+                                <span>@item.JobTitle</span>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+
+</div>

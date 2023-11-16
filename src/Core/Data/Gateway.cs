@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Core.Models;
 
+
 namespace Core.Data
 {
     public class Gateway

@@ -1,18 +1,22 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    background-color: pink;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+        background-color: pink;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    background-color: pink;
 }
 
 body {
   margin-bottom: 60px;
+  background-color: pink;
 }
