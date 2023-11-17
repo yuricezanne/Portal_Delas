@@ -9,8 +9,6 @@ namespace Core.Models
 
         public DateTime JobCreationDate { get; set; }
 
-        public DateTime JobDate { get; set; }
-
         [MaxLength(1024)]
         public string JobDescription { get; set; }
 
@@ -20,5 +18,6 @@ namespace Core.Models
         public string JobCategory { get; set; }
         public string JobTitle { get;  set; }
         public bool IsInativo { get;  set; }
+
     }
 }
