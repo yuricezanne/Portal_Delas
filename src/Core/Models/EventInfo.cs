@@ -6,7 +6,6 @@ namespace Core.Models
     {
         [Key]
         public int EventID { get; set; }
-        public int EventId { get; internal set; }
         public DateTime EventCreationDate { get; set; }
 
         public DateTime EventDate { get; set; }

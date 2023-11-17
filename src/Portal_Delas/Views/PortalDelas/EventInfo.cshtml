@@ -2,7 +2,7 @@
 @using Portal_Delas.Models;
 @using Core.Data;
 @using System.Linq;
-@model List<JobInfo>
+@model List<EventInfo>
 
 
 @*
@@ -10,32 +10,35 @@
 *@
 @{
 
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "EventInfo";
 
 }
 
-@if(Model != null)
+@if (Model != null)
 {
 
-     <div class="text-center">
+    <div class="text-center">
 
         <p>
-            <a asp-action="Create" class="btn btn-primary">Criar Nova Vaga</a>
+            <a asp-action="Create" class="btn btn-primary">Criar Evento</a>
         </p>
 
 
 
-        <h5>Vagas</h5>
+        <h5>Eventos</h5>
 
         <table class="table">
             <thead>
                 <tr>
                     <th>Done</th>
-                    <th>JobCreationDate</th>
-                    <th>JobTitle</th>
-                    <th>JobDescription</th>
-                    <th>JobAddress</th>
-                    <th>JobCategory</th>
+                    <th>EventID</th>
+                    <th>EventCreationDate</th>
+                    <th>EventDate</th>
+                    <th>EventDescription</th>
+                    <th>EventAddress</th>
+                    <th>EventType</th>
+                    <th>EventTitle</th>
+                  
                 </tr>
             </thead>
             <tbody>
@@ -43,21 +46,21 @@
                 {
                     <tr>
                         <td>
-                            <input type="checkbox" checked="@item.IsInativo" onclick="window.location.href='CheckTitle/@item.JobID'" />
+                            <input type="checkbox" checked="@item.IsInativo" onclick="window.location.href='CheckTitle/@item.EventID'" />
                         </td>
                         <td>
-                            <span>@item.JobCreationDate</span>
+                            <span>@item.EventCreationDate</span>
                         </td>
                         <td>
-                            <span>@item.JobTitle</span>
+                            <span>@item.EventTitle</span>
                         </td>
 
                         @if (!item.IsInativo)
                         {
                             <td class="actions">
-                                <a asp-action="Edit" asp-route-id="@item.JobID" class="btn btn btn-primary">Edit</a>
-                                <a asp-action="Details" asp-route-id="@item.JobID" class="btn btn btn-primary">Details</a>
-                                <a asp-action="Delete" asp-route-id="@item.JobID" class="btn btn-danger">Delete</a>
+                                <a asp-action="Edit" asp-route-id="@item.EventID" class="btn btn btn-primary">Edit</a>
+                                <a asp-action="Details" asp-route-id="@item.EventID" class="btn btn btn-primary">Details</a>
+                                <a asp-action="Delete" asp-route-id="@item.EventID" class="btn btn-danger">Delete</a>
                             </td>
                         }
                     </tr>
@@ -74,7 +77,7 @@
                     <tr>
                         <th>Done</th>
                         <th>Finished Date</th>
-                        <th>JobTitle</th>
+                        <th>EventTitle</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,14 +87,14 @@
                         {
                             <tr>
                                 <td>
-                                    <input type="checkbox" checked="@item.IsInativo" onclick="window.location.href='CheckTitle/@item.JobID'" />
+                                    <input type="checkbox" checked="@item.IsInativo" onclick="window.location.href='CheckTitle/@item.EventID'" />
 
                                 </td>
                                 <td>
-                                    <span>@item.JobCreationDate</span>
+                                    <span>@item.EventCreationDate</span>
                                 </td>
                                 <td>
-                                    <span>@item.JobTitle</span>
+                                    <span>@item. EventTitle</span>
                                 </td>
                             </tr>
                         }
@@ -100,9 +103,9 @@
             </table>
         }
 
-    </div> 
+    </div>
 }
 else
 {
-    <p>Sem conteudo</p>    
+    <p>Sem conteudo</p>
 }

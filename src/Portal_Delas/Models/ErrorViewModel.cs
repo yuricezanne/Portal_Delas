@@ -6,4 +6,5 @@ namespace Portal_Delas.Models
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
+
 }

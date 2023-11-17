@@ -14,7 +14,6 @@ namespace SuaWebApi.Controllers
             {
                 JobID = 1,
                 JobCreationDate = DateTime.Now,
-                JobDate = DateTime.Now.AddDays(7),
                 JobDescription = "Descrição do Trabalho 1",
                 JobAddress = "Endereço do Trabalho 1",
                 JobCategory = "Categoria do Trabalho 1"
@@ -23,7 +22,6 @@ namespace SuaWebApi.Controllers
             {
                 JobID = 2,
                 JobCreationDate = DateTime.Now,
-                JobDate = DateTime.Now.AddDays(14),
                 JobDescription = "Descrição do Trabalho 2",
                 JobAddress = "Endereço do Trabalho 2",
                 JobCategory = "Categoria do Trabalho 2"
@@ -65,7 +63,6 @@ namespace SuaWebApi.Controllers
             }
 
             existingJob.JobCreationDate = job.JobCreationDate;
-            existingJob.JobDate = job.JobDate;
             existingJob.JobDescription = job.JobDescription;
             existingJob.JobAddress = job.JobAddress;
             existingJob.JobCategory = job.JobCategory;
