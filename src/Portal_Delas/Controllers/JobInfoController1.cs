@@ -39,7 +39,7 @@ namespace UI.Controllers
                 .Where(j => j.JobCategory == categoryName)
                 .ToList();
 
-            return View("JobInfo", jobsByCategory);
+            return View("Index", jobsByCategory);
         }
     }
 }
