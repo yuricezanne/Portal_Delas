@@ -20,8 +20,8 @@ namespace UI.Controllers
    
         public IActionResult JobInfo()
         {
-            List<JobInfo> jobInfo = _context.Jobs.ToList();
-            return View(jobInfo);
+            List<JobInfo> JobInfo = _context.Jobs.ToList();
+            return View(JobInfo);
         }
 
      

@@ -9,12 +9,12 @@ namespace UI.Controllers
     public class EventInfoController : Controller
     {
         private readonly PortalDbContext _context;
-        private readonly Gateway _gateway;
+        //private readonly Gateway _gateway;
 
         public EventInfoController(PortalDbContext context, Gateway gateway)
         {
             _context = context;
-            _gateway = gateway;
+            //_gateway = gateway;
         }
 
        
