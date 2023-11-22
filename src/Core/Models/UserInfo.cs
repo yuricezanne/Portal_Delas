@@ -5,12 +5,15 @@ namespace Core.Models
     public class UserInfo
     {
         [Key]
-        public int UserID { get; set; }
+        public int UserInfoId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The 'Username/Email' field is required.")]
+        [MaxLength(50, ErrorMessage = "The 'Username' field must have a maximum of 50 characters.")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "It must be an email.")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The 'Password' field is required.")]
+        [MaxLength(255, ErrorMessage = "The 'Password' field must have a maximum of 255 characters.")]
         public string Password { get; set; }
 
         [Required]
@@ -23,5 +26,6 @@ namespace Core.Models
 
         [StringLength(22)]
         public string UserPhone { get; set; }
+        public List<UserFavoriteJob> FavoriteJobs { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace SuaWebApi.Controllers
         {
             new UserInfo
             {
-                UserID = 1,
+                UserInfoId = 1,
                 Email = "usuario1@example.com",
                 Password = "senha123",
                 Name = "Usuário 1",
@@ -21,7 +21,7 @@ namespace SuaWebApi.Controllers
             },
             new UserInfo
             {
-                UserID = 2,
+                UserInfoId = 2,
                 Email = "usuario2@example.com",
                 Password = "senha456",
                 Name = "Usuário 2",
@@ -40,7 +40,7 @@ namespace SuaWebApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetUser(int id)
         {
-            var user = users.Find(u => u.UserID == id);
+            var user = users.Find(u => u.UserInfoId == id);
             if (user == null)
             {
                 return NotFound();
@@ -51,15 +51,15 @@ namespace SuaWebApi.Controllers
         [HttpPost]
         public IActionResult CreateUser([FromBody] UserInfo user)
         {
-            user.UserID = users.Count + 1;
+            user.UserInfoId = users.Count + 1;
             users.Add(user);
-            return CreatedAtAction(nameof(GetUser), new { id = user.UserID }, user);
+            return CreatedAtAction(nameof(GetUser), new { id = user.UserInfoId }, user);
         }
 
         [HttpPut("{id}")]
         public IActionResult UpdateUser(int id, [FromBody] UserInfo user)
         {
-            var existingUser = users.Find(u => u.UserID == id);
+            var existingUser = users.Find(u => u.UserInfoId == id);
             if (existingUser == null)
             {
                 return NotFound();
@@ -78,7 +78,7 @@ namespace SuaWebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteUser(int id)
         {
-            var user = users.Find(u => u.UserID == id);
+            var user = users.Find(u => u.UserInfoId == id);
             if (user == null)
             {
                 return NotFound();

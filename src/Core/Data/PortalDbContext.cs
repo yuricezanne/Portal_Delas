@@ -12,5 +12,12 @@ namespace Core.Data
         public DbSet<EventInfo> Events { get; set; }
         public DbSet<UserInfo> Users { get; set; }
         public DbSet<JobInfo> Jobs { get; set; }
+        public DbSet<JobCategory> Categories { get; set; }
+        public DbSet<UserFavoriteJob> UserFavoriteJobs { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<JobCategory>().HasNoKey();
+        }
     }
 }

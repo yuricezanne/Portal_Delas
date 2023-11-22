@@ -17,7 +17,8 @@ namespace WebApi.Controllers
                 EventDate = DateTime.Now.AddDays(7),
                 EventDescription = "Descrição do Evento 1",
                 EventAddress = "Endereço do Evento 1",
-                EventType = "Tipo do Evento 1"
+                EventType = "Tipo do Evento 1",
+                EventTitle = "Titulo do Evento 1",
             },
             new EventInfo
             {
@@ -26,7 +27,8 @@ namespace WebApi.Controllers
                 EventDate = DateTime.Now.AddDays(14),
                 EventDescription = "Descrição do Evento 2",
                 EventAddress = "Endereço do Evento 2",
-                EventType = "Tipo do Evento 2"
+                EventType = "Tipo do Evento 2",
+                EventTitle = "Titulo do Evento 2",
             }
         };
 
