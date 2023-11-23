@@ -16,7 +16,7 @@ namespace SuaWebApi.Controllers
                 JobCreationDate = DateTime.Now,
                 JobDescription = "Descrição do Trabalho 1",
                 JobAddress = "Endereço do Trabalho 1",
-                JobCategory = "Categoria do Trabalho 1"
+                //JobCategory = "Categoria do Trabalho 1"
             },
             new JobInfo
             {
@@ -24,7 +24,7 @@ namespace SuaWebApi.Controllers
                 JobCreationDate = DateTime.Now,
                 JobDescription = "Descrição do Trabalho 2",
                 JobAddress = "Endereço do Trabalho 2",
-                JobCategory = "Categoria do Trabalho 2"
+                //JobCategory = "Categoria do Trabalho 2"
             }
         };
 

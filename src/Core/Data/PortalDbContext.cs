@@ -20,9 +20,14 @@ namespace Core.Data
             // Configurando a relação entre JobInfo e JobCategory
             modelBuilder.Entity<JobInfo>()
                 .HasOne(j => j.JobCategory)
-                .WithMany(c => c.Jobs)
+                .WithMany()
                 .HasForeignKey(j => j.JobCategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Adicionando um índice único a CategoryName em JobCategory
+            modelBuilder.Entity<JobCategory>()
+                .HasIndex(c => c.CategoryId)
+                .IsUnique();
         }
     }
 }
