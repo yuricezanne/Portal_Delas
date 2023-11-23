@@ -1,15 +1,7 @@
-using Core.Data;
-using Microsoft.EntityFrameworkCore;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-builder.Services.AddDbContext<PortalDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionPortalDelas")));
 
 var app = builder.Build();
 
