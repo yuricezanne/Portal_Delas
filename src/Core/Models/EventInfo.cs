@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Models
 {
@@ -16,7 +17,10 @@ namespace Core.Models
         [MaxLength(1024)]
         public string EventAddress { get; set; }
 
-        public string EventType { get; set; }
+        public int? EventTypeId { get; set; }
+
+        [ForeignKey("EventTypeId")]
+        public EventType EventType { get; set; }
         public string EventTitle { get; set; }
         public bool IsInativo { get; set; }
     }

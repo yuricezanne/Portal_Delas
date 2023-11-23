@@ -26,6 +26,8 @@ namespace Core.Models
 
         [StringLength(22)]
         public string UserPhone { get; set; }
+
+        public List<JobInfo> CreatedJobs { get; set; }
         public List<UserFavoriteJob> FavoriteJobs { get; set; }
     }
 }

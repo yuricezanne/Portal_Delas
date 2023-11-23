@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using Core.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace Core.Models
+public class JobCategory
 {
-    public class JobCategory
-    {
-        public string CategoryName { get; set; }
-        public int CategoryId { get; set; }
-
-        public List<JobInfo> Jobs { get; set; }
-    }
+    public string CategoryName { get; set; }
+    [Key] 
+    public int CategoryId { get; set; }
 }

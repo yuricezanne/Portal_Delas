@@ -22,6 +22,13 @@ namespace Core.Models
         public JobCategory JobCategory { get; set; }
         public string JobTitle { get; set; }
         public bool IsInativo { get; set; }
+
+        // Chave estrangeira para o criador do trabalho
+        public int CreatedByUserId { get; set; }
+
+        [ForeignKey("CreatedByUserId")]
+        public UserInfo CreatedByUser { get; set; }
+
         public List<UserFavoriteJob> UsersWhoFavorited { get; set; }
     }
 }

@@ -43,20 +43,35 @@ namespace Core.Data
             return userLogin;
         }
 
-        public void CreateNewVaga(string Title, int UserId, int JobID, string Description, string Address, string Category)
+        public void CreateNewVaga(string Title, int UserId, int JobID, string Description, string Address, string CategoryName)
         {
-            JobInfo newItem = new JobInfo();
-            newItem.JobCreationDate = DateTime.Now;
-            newItem.JobTitle = Title;
-            newItem.JobID = JobID;
-            newItem.JobDescription = Description;
-            newItem.JobAddress = Address;
-            newItem.JobCategory = Category;
-            newItem.IsInativo = true;
+            // Verifica se a categoria já existe no banco de dados
+            JobCategory category = _context.Categories.FirstOrDefault(c => c.CategoryName == CategoryName);
+
+            // Se a categoria não existir, cria uma nova
+            if (category == null)
+            {
+                category = new JobCategory { CategoryName = CategoryName };
+                _context.Categories.Add(category);
+                _context.SaveChanges();
+            }
+
+            // Cria o novo trabalho associado à categoria
+            JobInfo newItem = new JobInfo
+            {
+                JobCreationDate = DateTime.Now,
+                JobTitle = Title,
+                JobID = JobID,
+                JobDescription = Description,
+                JobAddress = Address,
+                JobCategory = category, // Atribui a categoria ao trabalho
+                IsInativo = true
+            };
 
             _context.Jobs.Add(newItem);
             _context.SaveChanges();
         }
+
         public void DeleteVaga(int JobID)
         {
             var findItem = _context.Jobs

@@ -15,13 +15,40 @@ namespace Core.Data
         public DbSet<JobCategory> Categories { get; set; }
         public DbSet<UserFavoriteJob> UserFavoriteJobs { get; set; }
 
+        public DbSet<EventType> Types { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configurando a relação entre JobInfo e JobCategory
             modelBuilder.Entity<JobInfo>()
                 .HasOne(j => j.JobCategory)
-                .WithMany(c => c.Jobs)
+                .WithMany()
                 .HasForeignKey(j => j.JobCategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Adicionando um índice único a CategoryName em JobCategory
+            modelBuilder.Entity<JobCategory>()
+                .HasIndex(c => c.CategoryId)
+                .IsUnique();
+
+            // Configurando a relação entre EventInfo e EventType
+            modelBuilder.Entity<EventInfo>()
+                .HasOne(e => e.EventType)
+                .WithMany()
+                .HasForeignKey(e => e.EventTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Adicionando um índice único a CategoryName em JobCategory
+            modelBuilder.Entity<EventType>()
+                .HasIndex(t => t.TypeId)
+                .IsUnique();
+
+
+            // Configurando a relação entre JobInfo e UserInfo
+            modelBuilder.Entity<JobInfo>()
+                .HasOne(j => j.CreatedByUser)
+                .WithMany(u => u.CreatedJobs)
+                .HasForeignKey(j => j.CreatedByUserId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
