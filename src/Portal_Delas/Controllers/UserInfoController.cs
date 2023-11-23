@@ -1,6 +1,7 @@
 ﻿using Core.Data;
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -23,6 +24,49 @@ namespace UI.Controllers
 
         [HttpGet]
         public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register([FromForm] UserInfo registration)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            bool accountAlreadyExists = CheckIfAccountExists(registration);
+
+            if (accountAlreadyExists)
+            {
+                ModelState.AddModelError(string.Empty, "User already exists.");
+                return View();
+            }
+
+            _gateway.RegisterUser(registration);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                return RedirectToAction("Login", "UserInfo");
+            }
+
+            return RedirectToAction("Login", "UserInfo");
+        }
+
+        private bool CheckIfAccountExists(UserInfo registration)
+        {
+            var existingAccount = _gateway.VerifyUser(registration);
+
+            return existingAccount != null;
+        }
+
+        [HttpGet]
+        public IActionResult Login()
         {
             return View();
         }
