@@ -20,8 +20,11 @@ namespace Core.Models
 
         [ForeignKey("JobCategoryId")]
         public JobCategory JobCategory { get; set; }
+
         public string JobTitle { get; set; }
+        
         public bool IsInativo { get; set; }
+        
         public List<UserFavoriteJob> UsersWhoFavorited { get; set; }
     }
 }
