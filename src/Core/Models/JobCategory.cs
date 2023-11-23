@@ -8,7 +8,9 @@ namespace Core.Models
 {
     public class JobCategory
     {
-        public string JobCategory { get; set; }
-        public int Id { get; set; }
+        public string CategoryName { get; set; }
+        public int CategoryId { get; set; }
+
+        public List<JobInfo> Jobs { get; set; }
     }
 }
