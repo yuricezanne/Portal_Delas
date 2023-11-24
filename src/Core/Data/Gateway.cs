@@ -99,17 +99,30 @@ namespace Core.Data
             _context.SaveChanges();
         }
 
-        public void CreateNewEvento(string Title, int EventId, DateTime dateTime, string Description, string Address, string type)
+        public void CreateNewEvento(string Title, int EventId, DateTime dateTime, string Description, string Address, int EventTypeId)
         {
-            Models.EventInfo newItem = new Models.EventInfo();
-            newItem.EventCreationDate = DateTime.Now;
-            newItem.EventDate = dateTime;
-            newItem.EventTitle = Title;
-            newItem.EventID = EventId;
-            newItem.EventDescription = Description;
-            newItem.EventAddress = Address;
-            newItem.EventType = type;
-            newItem.IsInativo = true;
+            // Verifica se o tipo de evento já existe no banco de dados
+            EventType eventType = _context.EventTypes.FirstOrDefault(t => t.TypeId == EventTypeId);
+
+            // Se o tipo de evento não existir, você pode tratar isso conforme necessário (criar o tipo de evento, lançar uma exceção, etc.)
+            if (eventType == null)
+            {
+                // Trate isso de acordo com sua lógica de negócios
+                // Por exemplo, lançando uma exceção ou criando um novo tipo de evento
+                throw new InvalidOperationException("O tipo de evento especificado não existe.");
+            }
+
+            // Cria o novo evento associado ao tipo de evento
+            EventInfo newItem = new EventInfo
+            {
+                EventCreationDate = DateTime.Now,
+                EventTitle = Title,
+                EventID = EventId,
+                EventDescription = Description,
+                EventAddress = Address,
+                EventType = eventType, // Atribui o tipo de evento ao evento
+                IsInativo = true
+            };
 
             _context.Events.Add(newItem);
             _context.SaveChanges();

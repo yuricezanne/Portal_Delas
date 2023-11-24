@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Core.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace Core.Models
+public class JobCategory
 {
-    public class JobCategory
-    {
-        [Key]
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
-    }
+    public string CategoryName { get; set; }
+    [Key]
+    public int CategoryId { get; set; }
 }
