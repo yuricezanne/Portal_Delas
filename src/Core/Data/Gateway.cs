@@ -99,18 +99,10 @@ namespace Core.Data
             _context.SaveChanges();
         }
 
-        public void CreateNewEvento(string Title, int EventId, DateTime dateTime, string Description, string Address, int EventTypeId)
+        public void CreateNewEvento(string Title, int EventId, DateTime dateTime, string Description, string Address, int? EventTypeId)
         {
             // Verifica se o tipo de evento já existe no banco de dados
-            EventType eventType = _context.EventTypes.FirstOrDefault(t => t.TypeId == EventTypeId);
-
-            // Se o tipo de evento não existir, você pode tratar isso conforme necessário (criar o tipo de evento, lançar uma exceção, etc.)
-            if (eventType == null)
-            {
-                // Trate isso de acordo com sua lógica de negócios
-                // Por exemplo, lançando uma exceção ou criando um novo tipo de evento
-                throw new InvalidOperationException("O tipo de evento especificado não existe.");
-            }
+            EventType eventType = GetOrCreateEventType(EventTypeId.GetValueOrDefault()); // Use GetOrCreateEventType para garantir a existência do tipo de evento
 
             // Cria o novo evento associado ao tipo de evento
             EventInfo newItem = new EventInfo
@@ -118,6 +110,7 @@ namespace Core.Data
                 EventCreationDate = DateTime.Now,
                 EventTitle = Title,
                 EventID = EventId,
+                EventDate = dateTime,
                 EventDescription = Description,
                 EventAddress = Address,
                 EventType = eventType, // Atribui o tipo de evento ao evento
@@ -153,5 +146,48 @@ namespace Core.Data
 
             _context.SaveChanges();
         }
+
+        public EventType GetOrCreateEventType(int eventTypeId)
+        {
+            // Tente encontrar um EventType com o ID fornecido
+            EventType eventType = _context.EventTypes.FirstOrDefault(t => t.TypeId == eventTypeId);
+
+            // Se não existir, crie um novo EventType
+            if (eventType == null)
+            {
+                eventType = new EventType { TypeId = eventTypeId, TypeName = "Tipo Padrão" }; // Ajuste conforme necessário
+                _context.EventTypes.Add(eventType);
+                _context.SaveChanges();
+            }
+
+            return eventType;
+        }
+
+        public EventInfo GetEventoById(int eventId)
+        {
+            return _context.Events.FirstOrDefault(e => e.EventID == eventId);
+        }
+
+        public void UpdateEvento(int id, EventInfo updatedEvento)
+        {
+            var existingEvento = _context.Events.FirstOrDefault(e => e.EventID == id);
+
+            if (existingEvento != null)
+            {
+                existingEvento.EventCreationDate = updatedEvento.EventCreationDate;
+                existingEvento.EventDate = updatedEvento.EventDate;
+                existingEvento.EventDescription = updatedEvento.EventDescription;
+                existingEvento.EventAddress = updatedEvento.EventAddress;
+                existingEvento.EventType = GetOrCreateEventType(updatedEvento.EventTypeId.GetValueOrDefault()); // Use GetOrCreateEventType para garantir a existência do tipo de evento
+
+                _context.SaveChanges();
+            }
+        }
+
+        public List<EventInfo> GetAllEventos()
+        {
+            return _context.Events.ToList();
+        }
     }
-}
+    }
+

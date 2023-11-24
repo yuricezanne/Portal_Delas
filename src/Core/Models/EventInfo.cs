@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Models
@@ -23,5 +24,13 @@ namespace Core.Models
         public EventType EventType { get; set; }
         public string EventTitle { get; set; }
         public bool IsInativo { get; set; }
+
+        // Adicione a chave estrangeira para o criador do evento
+        public int CreatedByUserId { get; set; }
+
+        [ForeignKey("CreatedByUserId")]
+        public UserInfo EventCreatedByUser { get; set; }
+
+        public List<UserFavoriteEvent> UsersWhoFavorited { get; set; }
     }
 }

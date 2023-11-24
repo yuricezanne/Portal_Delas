@@ -50,7 +50,20 @@ namespace Core.Data
                 .WithMany(u => u.CreatedJobs)
                 .HasForeignKey(j => j.CreatedByUserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Configurando a relação entre EventInfo e EventType
+            modelBuilder.Entity<EventInfo>()
+                .HasOne(e => e.EventType)
+                .WithMany()
+                .HasForeignKey(e => e.EventTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Configurando a relação entre EventInfo e UserInfo (criador do evento)
+            modelBuilder.Entity<EventInfo>()
+                .HasOne(e => e.EventCreatedByUser)
+                .WithMany(u => u.CreatedEvents)
+                .HasForeignKey(e => e.CreatedByUserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
     }
-}

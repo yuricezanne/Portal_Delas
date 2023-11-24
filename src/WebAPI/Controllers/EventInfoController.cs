@@ -1,5 +1,8 @@
-﻿using Core.Models;
+﻿using Core.Data;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace WebApi.Controllers
 {
@@ -7,85 +10,66 @@ namespace WebApi.Controllers
     [Route("api/[controller]")]
     public class EventosController : ControllerBase
     {
-        // Simulação de uma lista de eventos para exemplo
-        private static List<EventInfo> eventos = new List<EventInfo>
+        public class Gateway
         {
-            new EventInfo
-            {
-                EventID = 1,
-                EventCreationDate = DateTime.Now,
-                EventDate = DateTime.Now.AddDays(7),
-                EventDescription = "Descrição do Evento 1",
-                EventAddress = "Endereço do Evento 1",
-                EventType = "Tipo do Evento 1",
-                EventTitle = "Titulo do Evento 1",
-            },
-            new EventInfo
-            {
-                EventID = 2,
-                EventCreationDate = DateTime.Now,
-                EventDate = DateTime.Now.AddDays(14),
-                EventDescription = "Descrição do Evento 2",
-                EventAddress = "Endereço do Evento 2",
-                EventType = "Tipo do Evento 2",
-                EventTitle = "Titulo do Evento 2",
-            }
-        };
+            private readonly PortalDbContext _context;
 
-        [HttpGet]
-        public IActionResult GetEventos()
-        {
-            return Ok(eventos);
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetEvento(int id)
-        {
-            var evento = eventos.Find(e => e.EventID == id);
-            if (evento == null)
+            public Gateway(PortalDbContext context)
             {
-                return NotFound();
-            }
-            return Ok(evento);
-        }
-
-        [HttpPost]
-        public IActionResult CreateEvento([FromBody] EventInfo evento)
-        {
-            evento.EventID = eventos.Count + 1;
-            eventos.Add(evento);
-            return CreatedAtAction(nameof(GetEvento), new { id = evento.EventID }, evento);
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult UpdateEvento(int id, [FromBody] EventInfo evento)
-        {
-            var existingEvento = eventos.Find(e => e.EventID == id);
-            if (existingEvento == null)
-            {
-                return NotFound();
+                _context = context;
             }
 
-            existingEvento.EventCreationDate = evento.EventCreationDate;
-            existingEvento.EventDate = evento.EventDate;
-            existingEvento.EventDescription = evento.EventDescription;
-            existingEvento.EventAddress = evento.EventAddress;
-            existingEvento.EventType = evento.EventType;
-
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult DeleteEvento(int id)
-        {
-            var evento = eventos.Find(e => e.EventID == id);
-            if (evento == null)
+            public EventInfo GetEventoById(int eventId)
             {
-                return NotFound();
+                return _context.Events.FirstOrDefault(e => e.EventID == eventId);
             }
 
-            eventos.Remove(evento);
-            return NoContent();
+            public void CreateNewEvento(string title, int eventId, DateTime eventDate, string description, string address, int eventTypeId)
+            {
+                // Cria um novo evento
+                EventInfo newEvent = new EventInfo
+                {
+                    EventTitle = title,
+                    EventID = eventId,
+                    EventDate = eventDate,
+                    EventDescription = description,
+                    EventAddress = address,
+                    EventTypeId = eventTypeId,
+                    IsInativo = true // Ou qualquer outra lógica que seu sistema exija
+                };
+
+                _context.Events.Add(newEvent);
+                _context.SaveChanges();
+            }
+
+            public void UpdateEvento(int eventId, EventInfo updatedEvent)
+            {
+                var existingEvent = _context.Events.FirstOrDefault(e => e.EventID == eventId);
+
+                if (existingEvent != null)
+                {
+                    // Atualiza os atributos do evento existente com base nos dados recebidos
+                    existingEvent.EventTitle = updatedEvent.EventTitle;
+                    existingEvent.EventDate = updatedEvent.EventDate;
+                    existingEvent.EventDescription = updatedEvent.EventDescription;
+                    existingEvent.EventAddress = updatedEvent.EventAddress;
+                    existingEvent.EventTypeId = updatedEvent.EventTypeId;
+
+                    _context.SaveChanges();
+                }
+            }
+
+            public void DeleteEvento(int eventId)
+            {
+                var existingEvent = _context.Events.FirstOrDefault(e => e.EventID == eventId);
+
+                if (existingEvent != null)
+                {
+                    _context.Events.Remove(existingEvent);
+                    _context.SaveChanges();
+                }
+
+            }
         }
     }
 }
