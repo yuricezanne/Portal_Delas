@@ -130,7 +130,11 @@ namespace UI.Controllers
                 new Claim(ClaimTypes.Name, userLogin.Name),
             }));
 
-            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("Index", "Home");
+            return View("../Home/Index", new LoginResultModel
+            {
+                LoginType = userLogin.UserType
+            });
         }
 
         [HttpGet]
