@@ -18,10 +18,8 @@ namespace Core.Models
         [MaxLength(1024)]
         public string EventAddress { get; set; }
 
-        public int? EventTypeId { get; set; }
+        public string EventType { get; set; }
 
-        [ForeignKey("EventTypeId")]
-        public EventType EventType { get; set; }
         public string EventTitle { get; set; }
         public bool IsInativo { get; set; }
 

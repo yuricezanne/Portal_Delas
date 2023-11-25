@@ -1,12 +1,21 @@
-﻿using Core.Models;
+﻿using Core.Data;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UI.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class EventosController : ControllerBase
+
+    public class EventInfoController : ControllerBase
     {
+        private readonly PortalDbContext _context;
+        private readonly Gateway _gateway;
+
+
+        public EventInfoController(PortalDbContext context, Gateway gateway)
+        {
+            _gateway = gateway;
+            _context = context;
+        }
         // Simulação de uma lista de eventos para exemplo
         private static List<EventInfo> eventos = new List<EventInfo>
         {
@@ -17,7 +26,7 @@ namespace UI.Controllers
                 EventDate = DateTime.Now.AddDays(7),
                 EventDescription = "Descrição do Evento 1",
                 EventAddress = "Endereço do Evento 1",
-                EventType = new EventType { TypeName = "Tipo do Evento 1" },
+                EventType = "Tipo do Evento 1", 
                 EventTitle = "Titulo do Evento 1",
             },
             new EventInfo
@@ -27,7 +36,7 @@ namespace UI.Controllers
                 EventDate = DateTime.Now.AddDays(14),
                 EventDescription = "Descrição do Evento 2",
                 EventAddress = "Endereço do Evento 2",
-                EventType = new EventType { TypeName = "Tipo do Evento 2" },
+                EventType = "Tipo do Evento 2",
                 EventTitle = "Titulo do Evento 2",
             }
         };
@@ -50,11 +59,11 @@ namespace UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateEvento([FromBody] EventInfo evento)
+        public async Task<IActionResult> CreateEvent(EventInfo eventinfo)
         {
-            evento.EventID = eventos.Count + 1;
-            eventos.Add(evento);
-            return CreatedAtAction(nameof(GetEvento), new { id = evento.EventID }, evento);
+
+            _gateway.CreateNewEvento(eventinfo.EventTitle, eventinfo.EventDate, eventinfo.EventAddress, eventinfo.EventDescription, eventinfo.EventType);
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPut("{id}")]

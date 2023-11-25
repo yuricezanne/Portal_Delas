@@ -13,22 +13,12 @@ namespace Core.Data
         public DbSet<UserInfo> Users { get; set; }
         public DbSet<JobInfo> Jobs { get; set; }
         public DbSet<UserFavoriteJob> UserFavoriteJobs { get; set; }
-
-        public DbSet<EventType> EventTypes { get; set; }
         public DbSet<UserFavoriteEvent> UserFavoriteEvents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            // Configurando a relação entre EventInfo e EventType
-            modelBuilder.Entity<EventInfo>()
-                .HasOne(e => e.EventType)
-                .WithMany()
-                .HasForeignKey(e => e.EventTypeId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-
-
+          
             // Configurando a relação entre JobInfo e UserInfo
             modelBuilder.Entity<JobInfo>()
                 .HasOne(j => j.CreatedByUser)
@@ -36,12 +26,6 @@ namespace Core.Data
                 .HasForeignKey(j => j.CreatedByUserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Configurando a relação entre EventInfo e EventType
-            modelBuilder.Entity<EventInfo>()
-                .HasOne(e => e.EventType)
-                .WithMany()
-                .HasForeignKey(e => e.EventTypeId)
-                .OnDelete(DeleteBehavior.Restrict);
 
             // Configurando a relação entre EventInfo e UserInfo (criador do evento)
             modelBuilder.Entity<EventInfo>()

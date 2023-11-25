@@ -50,7 +50,7 @@ namespace Core.Data
             return userLogin;
         }
 
-        public void CreateNewVaga(string Title, string Description, string Address, string CategoryName)
+        public void CreateNewVaga(string title, string description, string address, string categoryName)
         {
 
             //var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
@@ -69,10 +69,10 @@ namespace Core.Data
             JobInfo newItem = new JobInfo
             {
                 JobCreationDate = DateTime.Now,
-                JobTitle = Title,
-                JobDescription = Description,
-                JobAddress = Address,
-                JobCategory = CategoryName, // Atribui a categoria ao trabalho
+                JobTitle = title,
+                JobDescription = description,
+                JobAddress = address,
+                JobCategory = categoryName, // Atribui a categoria ao trabalho
                 IsInativo = true,
                 CreatedByUserId = 1        
             };
@@ -108,21 +108,19 @@ namespace Core.Data
             _context.SaveChanges();
         }
 
-        public void CreateNewEvento(string Title, DateTime dateTime, string Description, string Address, string EventType)
+        public void CreateNewEvento(string title, DateTime dateTime, string description, string address, string eventType)
         {
-            var eventType = new EventType { TypeName = EventType };
 
-
-            // Cria o novo evento associado ao tipo de evento
             EventInfo newItem = new EventInfo
             {
                 EventCreationDate = DateTime.Now,
-                EventTitle = Title,
+                EventTitle = title,
                 EventDate = dateTime,
-                EventDescription = Description,
-                EventAddress = Address,
-                EventType = eventType, // Atribui o tipo de evento ao evento
-                IsInativo = true
+                EventDescription = description,
+                EventAddress = address,
+                EventType = eventType, 
+                IsInativo = true,
+                CreatedByUserId = 1
             };
 
             _context.Events.Add(newItem);
@@ -155,20 +153,6 @@ namespace Core.Data
             _context.SaveChanges();
         }
 
-        public EventType GetOrCreateEventType(int eventTypeId)
-        {
-            // Tente encontrar um EventType com o ID fornecido
-            EventType eventType = _context.EventTypes.FirstOrDefault(t => t.TypeId == eventTypeId);
-
-            // Se não existir, crie um novo EventType
-            if (eventType == null)
-            {
-                eventType = new EventType { TypeId = eventTypeId, TypeName = "Tipo Padrão" }; // Ajuste conforme necessário
-                _context.EventTypes.Add(eventType);
-                _context.SaveChanges();
-            }
-
-            return eventType;
-        }
+      
     }
 }
