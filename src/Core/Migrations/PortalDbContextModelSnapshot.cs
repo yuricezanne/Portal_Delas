@@ -90,8 +90,7 @@ namespace Core.Migrations
 
                     b.Property<string>("JobAddress")
                         .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("JobCategory")
                         .IsRequired()

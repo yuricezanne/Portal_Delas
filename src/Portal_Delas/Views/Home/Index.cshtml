@@ -15,10 +15,15 @@
     if (Model.LoginType.Equals("I am a Company"))
     {
         <p>Welcome</p>
-        //<p>Create a Job</p>
-        <a asp-controller="Home" asp-action="CreateJob">Create a Job</a>
-       //@Html.ActionLink("Create Job","CreateJob","Home")
-        <p>Create an Event</p>
+        <div>
+            <a asp-controller="Home" asp-action="CreateJob">Create a Job</a>
+        </div>
+        <div>
+            <a asp-controller="Home" asp-action="CreateEvent">Create an Event</a>
+        </div>
+        <div>
+            <p>Check your post history</p>
+        </div>
     }
     else
     {
@@ -29,7 +34,7 @@
 }
 else
 {
-    <p>Bem Vinda ao Portal Delas/Welcome to Portal Delas</p>
-    <p>Crie uma conta ou faça login para continuar</p>
-    <p>Create your account or login to continue</p>
+    <p>Bem Vinda ao Portal Delas/Welcome to Portal Delas!</p>
+    <p>Crie uma conta ou faça login para continuar.</p>
+    <p>Create your account or login to continue.</p>
 }

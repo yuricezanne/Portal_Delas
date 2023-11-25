@@ -18,6 +18,14 @@ namespace UI.Controllers
             List<JobInfo>? jobInfo = _context.Jobs.ToList() ?? null;
             return View(jobInfo);
         }
+        public IActionResult CreateJob()
+        {
+            return View();
+        }
 
+        public IActionResult CreateEvent()
+        {
+            return View();
+        }
     }
 }

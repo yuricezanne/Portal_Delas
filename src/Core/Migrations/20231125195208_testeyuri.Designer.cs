@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    [Migration("20231125171152_step4")]
-    partial class step4
+    [Migration("20231125195208_testeyuri")]
+    partial class testeyuri
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -92,8 +92,7 @@ namespace Core.Migrations
 
                     b.Property<string>("JobAddress")
                         .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("JobCategory")
                         .IsRequired()
