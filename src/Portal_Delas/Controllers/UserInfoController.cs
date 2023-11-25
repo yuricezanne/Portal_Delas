@@ -102,7 +102,7 @@ namespace UI.Controllers
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Email, userLogin.Email),
-                    new Claim(ClaimTypes.Name, userLogin.Name),
+                    new Claim(ClaimTypes.Name, userLogin.Name)
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -145,5 +145,8 @@ namespace UI.Controllers
 
             return RedirectToAction("Login", "UserInfo");
         }
+
+        
+        
     }
 }

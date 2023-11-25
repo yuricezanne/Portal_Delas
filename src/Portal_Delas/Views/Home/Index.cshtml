@@ -15,7 +15,9 @@
     if (Model.LoginType.Equals("I am a Company"))
     {
         <p>Welcome</p>
-        <p>Create a Job</p>
+        //<p>Create a Job</p>
+        <a asp-controller="Home" asp-action="CreateJob">Create a Job</a>
+       //@Html.ActionLink("Create Job","CreateJob","Home")
         <p>Create an Event</p>
     }
     else

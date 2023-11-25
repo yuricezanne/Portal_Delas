@@ -11,20 +11,24 @@ namespace Core.Models
         public DateTime JobCreationDate { get; set; }
 
         [MaxLength(1024)]
-        public string JobDescription { get; set; }
+        public string JobTitle { get; set; }
 
         [MaxLength(1024)]
+        public string JobDescription { get; set; }
+
+       
+        public string JobCategory { get; set; }
+    
         public string JobAddress { get; set; }
 
-        public int? JobCategoryId { get; set; }
-
-        [ForeignKey("JobCategoryId")]
-        public JobCategory JobCategory { get; set; }
-
-        public string JobTitle { get; set; }
-        
         public bool IsInativo { get; set; }
-        
+
+        // Chave estrangeira para o criador do trabalho
+        public int CreatedByUserId { get; set; }
+
+        [ForeignKey("CreatedByUserId")]
+        public UserInfo CreatedByUser { get; set; }
+
         public List<UserFavoriteJob> UsersWhoFavorited { get; set; }
     }
 }

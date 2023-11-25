@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -49,29 +50,31 @@ namespace Core.Data
             return userLogin;
         }
 
-        public void CreateNewVaga(string Title, int UserId, int JobID, string Description, string Address, string CategoryName)
+        public void CreateNewVaga(string Title, string Description, string Address, string CategoryName)
         {
-            // Verifica se a categoria já existe no banco de dados
-            JobCategory category = _context.Categories.FirstOrDefault(c => c.CategoryName == CategoryName);
 
-            // Se a categoria não existir, cria uma nova
-            if (category == null)
-            {
-                category = new JobCategory { CategoryName = CategoryName };
-                _context.Categories.Add(category);
-                _context.SaveChanges();
-            }
+            //var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            //// Verifica se a categoria já existe no banco de dados
+            //JobCategory category = _context.Categories.FirstOrDefault(c => c.CategoryName == CategoryName);
 
-            // Cria o novo trabalho associado à categoria
+            //// Se a categoria não existir, cria uma nova
+            //if (category == null)
+            //{
+            //    category = new JobCategory { CategoryName = CategoryName };
+            //    _context.Categories.Add(category);
+            //    _context.SaveChanges();
+            //}
+
+            //// Cria o novo trabalho associado à categoria
             JobInfo newItem = new JobInfo
             {
                 JobCreationDate = DateTime.Now,
                 JobTitle = Title,
-                JobID = JobID,
                 JobDescription = Description,
                 JobAddress = Address,
-                JobCategory = category, // Atribui a categoria ao trabalho
-                IsInativo = true
+                JobCategory = CategoryName, // Atribui a categoria ao trabalho
+                IsInativo = true,
+                CreatedByUserId = 1        
             };
 
             _context.Jobs.Add(newItem);
@@ -105,17 +108,22 @@ namespace Core.Data
             _context.SaveChanges();
         }
 
-        public void CreateNewEvento(string Title, int EventId, DateTime dateTime, string Description, string Address, string type)
+        public void CreateNewEvento(string Title, DateTime dateTime, string Description, string Address, string EventType)
         {
-            Models.EventInfo newItem = new Models.EventInfo();
-            newItem.EventCreationDate = DateTime.Now;
-            newItem.EventDate = dateTime;
-            newItem.EventTitle = Title;
-            newItem.EventID = EventId;
-            newItem.EventDescription = Description;
-            newItem.EventAddress = Address;
-            newItem.EventType = type;
-            newItem.IsInativo = true;
+            var eventType = new EventType { TypeName = EventType };
+
+
+            // Cria o novo evento associado ao tipo de evento
+            EventInfo newItem = new EventInfo
+            {
+                EventCreationDate = DateTime.Now,
+                EventTitle = Title,
+                EventDate = dateTime,
+                EventDescription = Description,
+                EventAddress = Address,
+                EventType = eventType, // Atribui o tipo de evento ao evento
+                IsInativo = true
+            };
 
             _context.Events.Add(newItem);
             _context.SaveChanges();
@@ -145,6 +153,22 @@ namespace Core.Data
             }
 
             _context.SaveChanges();
+        }
+
+        public EventType GetOrCreateEventType(int eventTypeId)
+        {
+            // Tente encontrar um EventType com o ID fornecido
+            EventType eventType = _context.EventTypes.FirstOrDefault(t => t.TypeId == eventTypeId);
+
+            // Se não existir, crie um novo EventType
+            if (eventType == null)
+            {
+                eventType = new EventType { TypeId = eventTypeId, TypeName = "Tipo Padrão" }; // Ajuste conforme necessário
+                _context.EventTypes.Add(eventType);
+                _context.SaveChanges();
+            }
+
+            return eventType;
         }
     }
 }

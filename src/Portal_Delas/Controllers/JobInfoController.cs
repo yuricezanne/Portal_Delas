@@ -1,12 +1,22 @@
-﻿using Core.Models;
+﻿using Core.Data;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace UI.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
+
     public class JobInfoController : ControllerBase
     {
+        private readonly PortalDbContext _context;
+        private readonly Gateway _gateway;
+
+
+        public JobInfoController(PortalDbContext context, Gateway gateway)
+        {
+            _gateway = gateway;
+            _context = context;
+        }
         // Simulação de uma lista de trabalhos para exemplo
         private static List<JobInfo> jobs = new List<JobInfo>
         {
@@ -28,6 +38,28 @@ namespace UI.Controllers
             }
         };
 
+        [HttpPost]
+        public async Task<IActionResult> CreateJob(JobInfo jobinfo)
+        {
+
+            _gateway.CreateNewVaga(jobinfo.JobTitle, jobinfo.JobDescription, jobinfo.JobAddress,jobinfo.JobCategory);
+            return RedirectToAction("Index", "Home");
+
+            //try
+            //{
+
+            //}
+            //catch (DbUpdateException)
+            //{
+            //    return RedirectToAction("Login", "UserInfo");
+            //}
+
+            //return RedirectToAction("Login", "UserInfo");
+        }
+
+
+
+
         [HttpGet]
         public IActionResult GetJobs()
         {
@@ -45,13 +77,13 @@ namespace UI.Controllers
             return Ok(job);
         }
 
-        [HttpPost]
-        public IActionResult CreateJob([FromBody] JobInfo job)
-        {
-            job.JobID = jobs.Count + 1;
-            jobs.Add(job);
-            return CreatedAtAction(nameof(GetJob), new { id = job.JobID }, job);
-        }
+        //[HttpPost]
+        //public IActionResult CreateJob([FromBody] JobInfo job)
+        //{
+        //    job.JobID = jobs.Count + 1;
+        //    jobs.Add(job);
+        //    return CreatedAtAction(nameof(GetJob), new { id = job.JobID }, job);
+        //}
 
         [HttpPut("{id}")]
         public IActionResult UpdateJob(int id, [FromBody] JobInfo job)
