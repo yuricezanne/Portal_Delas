@@ -23,6 +23,15 @@ namespace Portal_Delas.Controllers
             return View();
         }
 
+        public IActionResult EventInfo()
+        {
+            return View();
+        }
+        public IActionResult JobInfo()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

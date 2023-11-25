@@ -1,5 +1,6 @@
 ﻿using Core.Data;
 using Core.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -72,7 +73,7 @@ namespace UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromForm] UserInfo login)
+        public async Task<IActionResult> Login([FromForm] UserLoginInfo login)
         {
             if (!ModelState.IsValid)
             {
@@ -100,8 +101,8 @@ namespace UI.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-            new Claim(ClaimTypes.Email, userLogin.Email),
-            new Claim(ClaimTypes.Name, userLogin.Name),
+                    new Claim(ClaimTypes.Email, userLogin.Email),
+                    new Claim(ClaimTypes.Name, userLogin.Name),
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -123,8 +124,13 @@ namespace UI.Controllers
             Console.WriteLine($"Email: {userLogin.Email}");
             Console.WriteLine($"Name: {userLogin.Name}");
 
+            var principal = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+                new Claim(ClaimTypes.Email, userLogin.Email),
+                new Claim(ClaimTypes.Name, userLogin.Name),
+            }));
 
-            return RedirectToAction("Index", "Todo");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]

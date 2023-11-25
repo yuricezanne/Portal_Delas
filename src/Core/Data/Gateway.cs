@@ -26,6 +26,12 @@ namespace Core.Data
 
             registeruser.Name = registration.Name;
 
+            registeruser.UserType = registration.UserType;
+
+            registeruser.CompanyName = registration.CompanyName;
+
+            registeruser.UserPhone = registration.UserPhone;
+
             _context.Users.Add(registeruser);
         }
 

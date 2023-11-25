@@ -1,4 +1,14 @@
-﻿﻿
+﻿@using System.Security.Claims
+@using System.IdentityModel.Tokens.Jwt
+
+@{
+    var HttpCtx = ViewContext.HttpContext;
+    var token = HttpCtx.Session.GetString("token");
+    var user = User.Identity as ClaimsIdentity;
+    string userEmail = user?.FindFirst(ClaimTypes.Email)?.Value;
+    string userName = user?.FindFirst(ClaimTypes.Name)?.Value;
+}
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,24 +30,38 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
+@*                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="JobInfo" asp-action="Index">Vagas</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="JobInfo" asp-action="Index">Jobs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="EventInfo" asp-action="EventInfo">Eventos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="UserInfo" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="UserInfo" asp-action="Register">Register</a>
-                        </li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="EventInfoController" asp-action="EventInfo">Events</a>
+                        </li> *@
+                        @if (token != null)
+                        {
+                            <li>
+                                <span class="nav-link text-dark">Welcome @userName!</span>
+                            </li>
+
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UserInfo" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UserInfo" asp-action="Register">Register</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UserInfo" asp-action="Login">Login</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -51,7 +75,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - Portal_Delas - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - Portal Delas - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

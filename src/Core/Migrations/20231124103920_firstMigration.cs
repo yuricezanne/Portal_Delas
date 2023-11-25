@@ -52,7 +52,7 @@ namespace Core.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserPhone = table.Column<string>(type: "nvarchar(22)", maxLength: 22, nullable: false)
+                    UserPhone = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true)
                 },
                 constraints: table =>
                 {

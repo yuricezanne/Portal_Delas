@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    [Migration("20231123183519_firstMigration")]
+    [Migration("20231124103920_firstMigration")]
     partial class firstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -172,9 +172,8 @@ namespace Core.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("UserPhone")
-                        .IsRequired()
-                        .HasMaxLength(22)
-                        .HasColumnType("nvarchar(22)");
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
 
                     b.Property<string>("UserType")
                         .IsRequired()

@@ -2,7 +2,7 @@
 
 namespace Core.Models
 {
-    public class UserInfo
+    public class UserLoginInfo
     {
         [Key]
         public int UserInfoId { get; set; }
@@ -15,16 +15,5 @@ namespace Core.Models
         [Required(ErrorMessage = "The 'Password' field is required.")]
         [MaxLength(255, ErrorMessage = "The 'Password' field must have a maximum of 255 characters.")]
         public string Password { get; set; }
-
-        public string Name { get; set; }
-
-        public string UserType { get; set; }
-
-        public string? CompanyName { get; set; }
-
-        [StringLength(9)]
-        public string? UserPhone { get; set; }
-
-        public List<UserFavoriteJob>? FavoriteJobs { get; set; }
     }
 }
