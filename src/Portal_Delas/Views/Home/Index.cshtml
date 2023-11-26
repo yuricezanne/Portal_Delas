@@ -15,25 +15,29 @@
     if (Model.LoginType.Equals("I am a Company"))
     {
         <p>Welcome</p>
-        <div>
-            <a asp-controller="Home" asp-action="CreateJob">Create a Job</a>
-        </div>
-        <div>
-            <a asp-controller="Home" asp-action="CreateEvent">Create an Event</a>
-        </div>
-        <div>
-             <a asp-controller="Home" asp-action="PostHistory">Check your post history</a>
-        </div>
+				<div class="mb-3">
+    <a asp-controller="Home" asp-action="CreateJob" class="btn btn-secondary">Create a Job</a>
+	</div>
+	<div class="mb-3">
+    <a asp-controller="Home" asp-action="CreateEvent" class="btn btn-secondary">Create an Event</a>
+	</div>
+	<div class="mb-3">
+    <a asp-controller="Home" asp-action="PostHistory" class="btn btn-secondary">Check your post history</a>
+	</div>
+	<div class="mb-3">
+    <a asp-controller="Home" asp-action="EventHistory" class="btn btn-secondary">Check your event history</a>
+	</div>
     }
     else
     {
         <p>Welcome</p>
-        <div>
-            <a asp-controller="Home" asp-action="ApplyJob">Apply to a Job</a>
-        </div>
-        <div>
-            <a asp-controller="Home" asp-action="ApplyEvent">Apply to an Event</a>
-        </div>
+		<div class="mb-3">
+	 <a asp-controller="Home" asp-action="ApplyJob" class="btn btn-secondary">Apply to a Job</a>
+		</div>
+		<div class="mb-3">
+    <a asp-controller="Home" asp-action="ApplyEvent" class="btn btn-secondary">Apply to an Event</a>
+		</div>
+
         <p>Check your applied history</p>
     }
 }

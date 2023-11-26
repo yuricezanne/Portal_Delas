@@ -8,7 +8,7 @@
 *@
 @{
 
-	ViewData["Title"] = "Details";
+	ViewData["Title"] = "DetailsJob";
 
 }
 
@@ -54,8 +54,8 @@
 				@Model.JobCategory
 			</dd>
 			<div class="form-group">
-				<a asp-action="Edit" asp-route-id="@Model.JobID" class="btn btn-primary">Edit</a>
-				<a asp-action="Index" class="btn btn-secondary">Back to List</a>
+				<a asp-controller="JobInfo" asp-action="EditJob" asp-route-id="@Model.JobID" class="btn btn-primary">Edit</a>
+				 <a asp-controller="Home" asp-action="PostHistory" class="btn btn-secondary">Back to List</a>
 			</div>
 		</dl>
 	</div>

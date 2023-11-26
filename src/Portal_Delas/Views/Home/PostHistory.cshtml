@@ -2,57 +2,61 @@
 @model List<JobInfo>
 
 @{
-    ViewData["Title"] = "PostHistory";
+	ViewData["Title"] = "PostHistory";
 }
 
 <div class="text-center">
 
- 
 
-        <h5>Minhas Vagas</h5>
 
-        <table class="table">
-            <thead>
-                <tr>
-                   @* <th>Concluído</th>*@
-                    <th>JobTitle</th>
-                    <th>Data de Criação</th>
-                    <th>Categoria</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                                           <tr>
-                            @*<td>
-                                <input type="checkbox" checked="@item.IsInativo" onclick="window.location.href='CheckJob/@item.JobID'" />
+	<h5>Minhas Vagas</h5>
 
-                            </td>*@
+	<table class="table">
+		<thead>
+			<tr>
+				@* <th>Concluído</th>*@
+				<th>JobTitle</th>
+				<th>Data de Criação</th>
+				<th>Categoria</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					@*<td>
+				<input type="checkbox" checked="@item.IsInativo" onclick="window.location.href='CheckJob/@item.JobID'" />
 
-                            <td>
-                                <span>@item.JobTitle</span>
-                            </td>
-                            <td>
-                                <span>@item.JobCreationDate</span>
-                            </td>
-                            <td>
-                                <span>@item.JobCategory</span>
-                            </td>
-                             <td class="actions">
-                                    <a asp-action="EditJob" asp-route-id="@item.JobID" class="btn btn-primary">Edit</a>
-                                    <a asp-action="DetailsJob" asp-route-id="@item.JobID" class="btn btn-primary">Details</a>
-                                    <a asp-action="DeleteJob" asp-route-id="@item.JobID" class="btn btn-danger">Delete</a>
-                            </td>
-                          
-                        </tr>
-                    
-                }
-            </tbody>
-        </table>
+				</td>*@
+
+					<td>
+						<span>@item.JobTitle</span>
+					</td>
+					<td>
+						<span>@item.JobCreationDate</span>
+					</td>
+					<td>
+						<span>@item.JobCategory</span>
+					</td>
+					<td class="actions">
+						<a asp-controller="JobInfo" asp-action="EditJob" asp-route-id="@item.JobID" class="btn btn-primary">Edit</a>
+						<a asp-controller="JobInfo" asp-action="DetailsJob" asp-route-id="@item.JobID" class="btn btn-primary">Details</a>
+						<a asp-controller="JobInfo" asp-action="DeleteJob" asp-route-id="@item.JobID" class="btn btn-danger">Delete</a>
+					</td>
+
+				</tr>
+
+			}
+		</tbody>
+	</table>
 
 </div>
 
-<div>
-    <input type="button" value="Return" onclick="history.go(-1);return false;">
+<div class="mb-3">
+	<input class="btn btn-primary" value="Return" onclick="history.go(-1);return false;">
+</div>
+
+<div class="mb-3">
+	<a asp-controller="Home" asp-action="CreateJob" class="btn btn-primary">Create New Job</a>
 </div>

@@ -81,19 +81,19 @@ namespace Core.Data
             _context.SaveChanges();
         }
 
-        public void DeleteVaga(int JobID)
-        {
-            var findItem = _context.Jobs
-                 .Where(x => x.JobID == JobID)
-                 .FirstOrDefault();
+		public void DeleteVaga(int JobID)
+		{
+			var findItem = _context.Jobs
+				 .Where(x => x.JobID == JobID)
+				 .FirstOrDefault();
 
-            if (findItem != null)
-            {
-                _context.Jobs.Remove(findItem);
-                _context.SaveChanges();
-            }
-        }
-        public void DesativarVaga(int JobID)
+			if (findItem != null)
+			{
+				_context.Jobs.Remove(findItem);
+				_context.SaveChanges();
+			}
+		}
+		public void DesativarVaga(int JobID)
         {
             var findItem = _context.Jobs
                  .Where(x => x.JobID == JobID)
@@ -108,8 +108,16 @@ namespace Core.Data
             _context.SaveChanges();
         }
 
+		public JobInfo DetailsVaga(int JobID)
+		{
+			var findItem = _context.Jobs
+				.Where(x => x.JobID == JobID)
+				.FirstOrDefault();
 
-        public void CreateNewEvento(string title, DateTime dateTime, string description, string address, string eventType)
+			return findItem;
+		}
+
+		public void CreateNewEvento(string title, DateTime dateTime, string description, string address, string eventType)
         {
 
             EventInfo newItem = new EventInfo

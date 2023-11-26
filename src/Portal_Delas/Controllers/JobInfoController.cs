@@ -105,20 +105,17 @@ namespace UI.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteJob(int id)
-        {
-            var job = jobs.Find(j => j.JobID == id);
-            if (job == null)
-            {
-                return NotFound();
-            }
+		[HttpGet]
+		public IActionResult DeleteJob(int id)
+		{
+				_gateway.DeleteVaga(id);
+				_logger.LogInformation("Vaga excluída!");
+				return RedirectToAction("PostHistory", "Home");
+		
+		}
 
-            jobs.Remove(job);
-            return NoContent();
-        }
 
-        [HttpGet]
+		[HttpGet]
         public IActionResult CheckJob(int id)
         {
             _gateway.DesativarVaga(id);
@@ -145,8 +142,22 @@ namespace UI.Controllers
         public IActionResult EditJob(int id, JobInfo updatedJob)
         {
             _gateway.EditVaga(id, updatedJob);
-            _logger.LogInformation("Tarefa id " + id + " editada!");
-            return RedirectToAction("PostHistory");
+            _logger.LogInformation("Vaga id " + id + " editada!");
+            return RedirectToAction("PostHistory", "Home");
         }
-    }
+
+
+		[HttpGet]
+		public IActionResult DetailsJob(int id)
+		{
+				var findItem = _gateway.DetailsVaga(id);
+
+				if (findItem != null)
+				{
+					return View(findItem);
+				}
+				return NotFound();
+			
+		}
+	}
 }
