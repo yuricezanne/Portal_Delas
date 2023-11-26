@@ -46,7 +46,7 @@ namespace UI.Controllers
         {
 
             _gateway.CreateNewVaga(jobinfo.JobTitle, jobinfo.JobDescription, jobinfo.JobAddress,jobinfo.JobCategory);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("PostHistory", "Home");
 
             //try
             //{
@@ -121,11 +121,32 @@ namespace UI.Controllers
         [HttpGet]
         public IActionResult CheckJob(int id)
         {
-
             _gateway.DesativarVaga(id);
             _logger.LogInformation("Status da tarefa id " + id + " alterado!");
-            return RedirectToAction("PostHistory");
+            return RedirectToAction("Index", "Home");
+        }
 
+        [HttpGet]
+        public IActionResult EditJob(int id)
+        {
+           
+                var findItem = _gateway.AccessVaga(id);
+
+            if (findItem != null)
+            {
+                return View(findItem);
+            }
+            return NotFound();
+
+
+        }
+
+        [HttpPost]
+        public IActionResult EditJob(int id, JobInfo updatedJob)
+        {
+            _gateway.EditVaga(id, updatedJob);
+            _logger.LogInformation("Tarefa id " + id + " editada!");
+            return RedirectToAction("PostHistory");
         }
     }
 }

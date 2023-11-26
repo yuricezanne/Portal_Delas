@@ -6,71 +6,52 @@
 }
 
 <div class="text-center">
-    <h5>Minhas Vagas</h5>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>JobTitle</th>
-                <th>Data de Criação</th>
-                <th>Categoria</th>
-                <th>Concluído</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <span>@item.JobTitle</span>
-                    </td>
-                    <td>
-                        <span>@item.JobCreationDate</span>
-                    </td>
-                    <td>
-                        <span>@item.JobCategory</span>
-                    </td>
-@*                    <td>
-                        <input type="checkbox" checked="@item.IsInativo" onclick="window.location.href='CheckJob/@item.JobID'" />
-                    </td>*@
-                    <td>
-                         <input type="checkbox" id="checkbox-@item.JobID" checked="@item.IsInativo" />
-                    </td>
-                    <td>
-                        @if (!item.IsInativo)
-                        {
-                            <div class="actions">
-                                <a asp-action="Edit" asp-route-id="@item.JobID" class="btn btn-primary">Edit</a>
-                                <a asp-action="Details" asp-route-id="@item.JobID" class="btn btn-primary">Details</a>
-                                <a asp-action="Delete" asp-route-id="@item.JobID" class="btn btn-danger">Delete</a>
-                            </div>
-                        }
-                        else
-                        {
-                            <span>---</span>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
 
+ 
+
+        <h5>Minhas Vagas</h5>
+
+        <table class="table">
+            <thead>
+                <tr>
+                   @* <th>Concluído</th>*@
+                    <th>JobTitle</th>
+                    <th>Data de Criação</th>
+                    <th>Categoria</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                                           <tr>
+                            @*<td>
+                                <input type="checkbox" checked="@item.IsInativo" onclick="window.location.href='CheckJob/@item.JobID'" />
+
+                            </td>*@
+
+                            <td>
+                                <span>@item.JobTitle</span>
+                            </td>
+                            <td>
+                                <span>@item.JobCreationDate</span>
+                            </td>
+                            <td>
+                                <span>@item.JobCategory</span>
+                            </td>
+                             <td class="actions">
+                                    <a asp-action="EditJob" asp-route-id="@item.JobID" class="btn btn-primary">Edit</a>
+                                    <a asp-action="Details" asp-route-id="@item.JobID" class="btn btn-primary">Details</a>
+                                    <a asp-action="Delete" asp-route-id="@item.JobID" class="btn btn-danger">Delete</a>
+                            </td>
+                          
+                        </tr>
+                    
+                }
+            </tbody>
+        </table>
+
+</div>
 <div>
     <input type="button" value="Return" onclick="history.go(-1);return false;">
 </div>
-
-@section scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-            checkboxes.forEach(function (checkbox) {
-                checkbox.addEventListener('change', function () {
-                    var jobId = this.id.split('-')[1];
-                    window.location.href = 'CheckJob/' + jobId;
-                });
-            });
-        });
-    </script>
-}

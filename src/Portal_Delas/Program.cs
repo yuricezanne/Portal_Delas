@@ -49,7 +49,9 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
-        name: "checkJob",
-        pattern: "{controller=JobInfo}/{action=CheckJob}/{id?}");
+    name: "checkJob",
+    pattern: "{controller=JobInfo}/{action=CheckJob}/{id?}");
 
 app.Run();
+
+

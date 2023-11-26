@@ -154,6 +154,29 @@ namespace Core.Data
             _context.SaveChanges();
         }
 
-      
+
+        public JobInfo AccessVaga(int id)
+        {
+            return _context.Jobs.FirstOrDefault(x => x.JobID == id);
+        }
+
+        public void EditVaga(int id, JobInfo updatedJob)
+        {
+            var existingJob = _context.Jobs.FirstOrDefault(x => x.JobID == id);
+
+            if (existingJob != null)
+            {
+                // Atualize as propriedades do trabalho existente com os valores do trabalho atualizado
+                existingJob.JobTitle = updatedJob.JobTitle;
+                existingJob.JobDescription = updatedJob.JobDescription;
+                existingJob.JobAddress = updatedJob.JobAddress;
+                existingJob.JobCategory = updatedJob.JobCategory;
+                // Atualize outras propriedades conforme necessário...
+
+                // Salve as alterações no contexto do banco de dados
+                _context.SaveChanges();
+            }
+        }
+
     }
 }
