@@ -50,9 +50,20 @@ namespace Portal_Delas.Controllers
 
         public IActionResult PostHistory()
         {
-
             var minhasVagas = _context.Jobs.ToList();
             return View(minhasVagas);
+        }
+
+        public IActionResult ApplyJob()
+        {
+            var minhasVagas = _context.Jobs.ToList();
+            return View(minhasVagas);
+        }
+
+        public IActionResult ApplyEvent()
+        {
+            var myEvents = _context.Events.ToList();
+            return View(myEvents);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

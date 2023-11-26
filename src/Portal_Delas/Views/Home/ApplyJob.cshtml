@@ -1,0 +1,64 @@
+﻿@using Core.Models
+@model List<JobInfo>
+
+@{
+    ViewData["Title"] = "Apply to an open position!";
+}
+
+<div class="text-center">
+    <h5>Open Positions</h5>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Job title</th>
+                <th>Job description</th>
+                <th>Post date</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <span>@item.JobTitle</span>
+                    </td>
+                    <td>
+                        <span>@item.JobDescription</span>
+                    </td>
+                    <td>
+                        <span>@item.JobCreationDate</span>
+                    </td>
+                    <td>
+                        <span>@item.JobCategory</span>
+                    </td>
+                    @*                    <td>
+                <input type="checkbox" checked="@item.IsInativo" onclick="window.location.href='CheckJob/@item.JobID'" />
+                </td>*@
+                    <td>
+                        <input type="checkbox" id="checkbox-@item.JobID" checked="@item.IsInativo" />
+                    </td>
+                    <td>
+                        @if (!item.IsInativo)
+                        {
+                            <div class="actions">
+                                <a asp-action="Edit" asp-route-id="@item.JobID" class="btn btn-primary">Edit</a>
+                                <a asp-action="Details" asp-route-id="@item.JobID" class="btn btn-primary">Details</a>
+                                <a asp-action="Delete" asp-route-id="@item.JobID" class="btn btn-danger">Delete</a>
+                            </div>
+                        }
+                        else
+                        {
+                            @* <span>---</span> *@
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <input type="button" value="Return" onclick="history.go(-1);return false;">
+</div>
