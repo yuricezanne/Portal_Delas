@@ -7,7 +7,7 @@ using Portal_Delas.Controllers;
 namespace UI.Controllers
 {
 
-    public class JobInfoController : ControllerBase
+    public class JobInfoController : Controller
     {
         private readonly PortalDbContext _context;
         private readonly Gateway _gateway;
@@ -42,23 +42,23 @@ namespace UI.Controllers
         };
 
         [HttpPost]
-        public async Task<IActionResult> CreateJob(JobInfo jobinfo)
-        {
+		public IActionResult CreateJob(JobInfo jobinfo)
+		{
 
-            _gateway.CreateNewVaga(jobinfo.JobTitle, jobinfo.JobDescription, jobinfo.JobAddress,jobinfo.JobCategory);
-            return RedirectToAction("PostHistory", "Home");
+			_gateway.CreateNewVaga(jobinfo.JobTitle, jobinfo.JobDescription, jobinfo.JobAddress, jobinfo.JobCategory);
+			var model = new LoginResultModel { LoginType = "I am a Company" };
+			return View("../Home/Index", model);
+			//try
+			//{
 
-            //try
-            //{
+			//}
+			//catch (DbUpdateException)
+			//{
+			//    return RedirectToAction("Login", "UserInfo");
+			//}
 
-            //}
-            //catch (DbUpdateException)
-            //{
-            //    return RedirectToAction("Login", "UserInfo");
-            //}
-
-            //return RedirectToAction("Login", "UserInfo");
-        }
+			//return RedirectToAction("Login", "UserInfo");
+		}
 
 
 

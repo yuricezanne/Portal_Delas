@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Portal_Delas.Models;
@@ -57,7 +58,22 @@ namespace Portal_Delas.Controllers
         public IActionResult ApplyJob()
         {
             var minhasVagas = _context.Jobs.ToList();
-            return View(minhasVagas);
+            var vagasFinais = new List<JobEventUserInfoModel>();
+
+            foreach (var vaga in minhasVagas)
+            {
+                var user = _context.Users.FirstOrDefault(u => u.UserInfoId.Equals(vaga.CreatedByUserId));
+                vagasFinais.Add(new JobEventUserInfoModel
+                {
+                    JobTitle = vaga.JobTitle,
+                    CompanyName = user.CompanyName,
+                    JobCreationDate = vaga.JobCreationDate,
+                    JobDescription = vaga.JobDescription,
+                    JobCategory = vaga.JobCategory,
+                });
+            }
+
+            return View(vagasFinais);
         }
 
         public IActionResult ApplyEvent()

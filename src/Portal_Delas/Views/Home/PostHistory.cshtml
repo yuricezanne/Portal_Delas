@@ -41,8 +41,8 @@
                             </td>
                              <td class="actions">
                                     <a asp-action="EditJob" asp-route-id="@item.JobID" class="btn btn-primary">Edit</a>
-                                    <a asp-action="Details" asp-route-id="@item.JobID" class="btn btn-primary">Details</a>
-                                    <a asp-action="Delete" asp-route-id="@item.JobID" class="btn btn-danger">Delete</a>
+                                    <a asp-action="DetailsJob" asp-route-id="@item.JobID" class="btn btn-primary">Details</a>
+                                    <a asp-action="DeleteJob" asp-route-id="@item.JobID" class="btn btn-danger">Delete</a>
                             </td>
                           
                         </tr>
@@ -52,6 +52,7 @@
         </table>
 
 </div>
+
 <div>
     <input type="button" value="Return" onclick="history.go(-1);return false;">
 </div>

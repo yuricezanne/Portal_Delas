@@ -37,26 +37,7 @@
                     <td>
                         <span>@item.EventType</span>
                     </td>
-                    @*                    <td>
-                <input type="checkbox" checked="@item.IsInativo" onclick="window.location.href='CheckJob/@item.JobID'" />
-                </td>*@
-                    <td>
-                        <input type="checkbox" id="checkbox-@item.EventID" checked="@item.IsInativo" />
-                    </td>
-                    <td>
-                        @if (!item.IsInativo)
-                        {
-                            <div class="actions">
-                                <a asp-action="Edit" asp-route-id="@item.EventID" class="btn btn-primary">Edit</a>
-                                <a asp-action="Details" asp-route-id="@item.EventID" class="btn btn-primary">Details</a>
-                                <a asp-action="Delete" asp-route-id="@item.EventID" class="btn btn-danger">Delete</a>
-                            </div>
-                        }
-                        else
-                        {
-                            @* <span>---</span> *@
-                        }
-                    </td>
+               
                 </tr>
             }
         </tbody>
