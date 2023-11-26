@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    [Migration("20231125195208_testeyuri")]
+    [Migration("20231126102421_testeyuri")]
     partial class testeyuri
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,12 +55,9 @@ namespace Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EventTypeId")
+                    b.Property<string>("EventType")
                         .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EventTypeTypeId")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsInativo")
                         .HasColumnType("bit");
@@ -68,10 +65,6 @@ namespace Core.Migrations
                     b.HasKey("EventID");
 
                     b.HasIndex("CreatedByUserId");
-
-                    b.HasIndex("EventTypeId");
-
-                    b.HasIndex("EventTypeTypeId");
 
                     b.ToTable("Events");
                 });
@@ -202,23 +195,6 @@ namespace Core.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("EventType", b =>
-                {
-                    b.Property<int>("TypeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TypeId"), 1L, 1);
-
-                    b.Property<string>("TypeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TypeId");
-
-                    b.ToTable("EventTypes");
-                });
-
             modelBuilder.Entity("Core.Models.EventInfo", b =>
                 {
                     b.HasOne("Core.Models.UserInfo", "EventCreatedByUser")
@@ -227,19 +203,7 @@ namespace Core.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("EventType", "EventType")
-                        .WithMany()
-                        .HasForeignKey("EventTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("EventType", null)
-                        .WithMany("Events")
-                        .HasForeignKey("EventTypeTypeId");
-
                     b.Navigation("EventCreatedByUser");
-
-                    b.Navigation("EventType");
                 });
 
             modelBuilder.Entity("Core.Models.JobInfo", b =>
@@ -310,11 +274,6 @@ namespace Core.Migrations
                     b.Navigation("FavoriteEvents");
 
                     b.Navigation("FavoriteJobs");
-                });
-
-            modelBuilder.Entity("EventType", b =>
-                {
-                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }

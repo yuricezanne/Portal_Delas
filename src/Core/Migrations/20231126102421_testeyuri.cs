@@ -10,19 +10,6 @@ namespace Core.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "EventTypes",
-                columns: table => new
-                {
-                    TypeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TypeName = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EventTypes", x => x.TypeId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -50,26 +37,14 @@ namespace Core.Migrations
                     EventDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EventDescription = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
                     EventAddress = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
-                    EventTypeId = table.Column<int>(type: "int", nullable: false),
+                    EventType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EventTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsInativo = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
-                    EventTypeTypeId = table.Column<int>(type: "int", nullable: true)
+                    CreatedByUserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Events", x => x.EventID);
-                    table.ForeignKey(
-                        name: "FK_Events_EventTypes_EventTypeId",
-                        column: x => x.EventTypeId,
-                        principalTable: "EventTypes",
-                        principalColumn: "TypeId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Events_EventTypes_EventTypeTypeId",
-                        column: x => x.EventTypeTypeId,
-                        principalTable: "EventTypes",
-                        principalColumn: "TypeId");
                     table.ForeignKey(
                         name: "FK_Events_Users_CreatedByUserId",
                         column: x => x.CreatedByUserId,
@@ -161,16 +136,6 @@ namespace Core.Migrations
                 column: "CreatedByUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_EventTypeId",
-                table: "Events",
-                column: "EventTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Events_EventTypeTypeId",
-                table: "Events",
-                column: "EventTypeTypeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Jobs_CreatedByUserId",
                 table: "Jobs",
                 column: "CreatedByUserId");
@@ -209,9 +174,6 @@ namespace Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "Jobs");
-
-            migrationBuilder.DropTable(
-                name: "EventTypes");
 
             migrationBuilder.DropTable(
                 name: "Users");
