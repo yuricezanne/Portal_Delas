@@ -61,34 +61,49 @@ namespace Portal_Delas.Controllers
 			return View(meuEventos);
 		}
 
-		public IActionResult ApplyJob()
-        {
-            var minhasVagas = _context.Jobs.ToList();
-            var vagasFinais = new List<JobEventUserInfoModel>();
+		public IActionResult ApplyJob(string categoryFilter)
+		{
+			var minhasVagas = _context.Jobs.ToList();
 
-            foreach (var vaga in minhasVagas)
-            {
-                var user = _context.Users.FirstOrDefault(u => u.UserInfoId.Equals(vaga.CreatedByUserId));
-                vagasFinais.Add(new JobEventUserInfoModel
-                {
-                    JobTitle = vaga.JobTitle,
-                    CompanyName = user.CompanyName,
-                    JobCreationDate = vaga.JobCreationDate,
-                    JobDescription = vaga.JobDescription,
-                    JobCategory = vaga.JobCategory,
-                });
-            }
+			// Se um filtro de categoria for fornecido, filtre as vagas com base na categoria
+			if (!string.IsNullOrEmpty(categoryFilter))
+			{
+				minhasVagas = minhasVagas.Where(j => j.JobCategory == categoryFilter).ToList();
+			}
 
-            return View(vagasFinais);
-        }
+			var vagasFinais = new List<JobEventUserInfoModel>();
 
-        public IActionResult ApplyEvent()
-        {
-            var myEvents = _context.Events.ToList();
-            return View(myEvents);
-        }
+			foreach (var vaga in minhasVagas)
+			{
+				var user = _context.Users.FirstOrDefault(u => u.UserInfoId.Equals(vaga.CreatedByUserId));
+				vagasFinais.Add(new JobEventUserInfoModel
+				{
+					JobTitle = vaga.JobTitle,
+					CompanyName = user.CompanyName,
+					JobCreationDate = vaga.JobCreationDate,
+					JobDescription = vaga.JobDescription,
+					JobCategory = vaga.JobCategory,
+				});
+			}
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+			return View(vagasFinais);
+		}
+
+
+		public IActionResult ApplyEvent(string eventFilter)
+		{
+			var myEvents = _context.Events.ToList();
+
+			// Se um filtro de evento for fornecido, filtre os eventos com base no tipo de evento
+			if (!string.IsNullOrEmpty(eventFilter))
+			{
+				myEvents = myEvents.Where(e => e.EventType == eventFilter).ToList();
+			}
+
+			return View(myEvents);
+		}
+
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

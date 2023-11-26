@@ -47,7 +47,7 @@ namespace UI.Controllers
 
 			_gateway.CreateNewVaga(jobinfo.JobTitle, jobinfo.JobDescription, jobinfo.JobAddress, jobinfo.JobCategory);
 			var model = new LoginResultModel { LoginType = "I am a Company" };
-			return View("../Home/PostHistory", model);
+			return View("../Home/Index", model);
 			//try
 			//{
 
@@ -63,32 +63,48 @@ namespace UI.Controllers
 
 
 
-        [HttpGet]
-        public IActionResult GetJobs()
-        {
-            return Ok(jobs);
-        }
+		[HttpGet]
+		public IActionResult GetJobs([FromQuery] string categoryFilter)
+		{
+			// Se a categoria de filtro for fornecida, filtre os trabalhos com base nela
+			if (!string.IsNullOrEmpty(categoryFilter))
+			{
+				var filteredJobs = jobs.Where(j => j.JobCategory == categoryFilter).ToList();
+				return Ok(filteredJobs);
+			}
 
-        [HttpGet("{id}")]
-        public IActionResult GetJob(int id)
-        {
-            var job = jobs.Find(j => j.JobID == id);
-            if (job == null)
-            {
-                return NotFound();
-            }
-            return Ok(job);
-        }
+			// Se não houver categoria de filtro, retorne todos os trabalhos
+			return Ok(jobs);
+		}
 
-        //[HttpPost]
-        //public IActionResult CreateJob([FromBody] JobInfo job)
-        //{
-        //    job.JobID = jobs.Count + 1;
-        //    jobs.Add(job);
-        //    return CreatedAtAction(nameof(GetJob), new { id = job.JobID }, job);
-        //}
+		[HttpGet("{id}")]
+		public IActionResult GetJob(int id, [FromQuery] string categoryFilter)
+		{
+			// Se a categoria de filtro for fornecida, filtre os trabalhos com base nela
+			var filteredJobs = !string.IsNullOrEmpty(categoryFilter)
+				? jobs.Where(j => j.JobCategory == categoryFilter).ToList()
+				: jobs;
 
-        [HttpPut("{id}")]
+			// Encontre o trabalho pelo ID na lista filtrada
+			var job = filteredJobs.Find(j => j.JobID == id);
+
+			if (job == null)
+			{
+				return NotFound();
+			}
+
+			return Ok(job);
+		}
+
+		//[HttpPost]
+		//public IActionResult CreateJob([FromBody] JobInfo job)
+		//{
+		//    job.JobID = jobs.Count + 1;
+		//    jobs.Add(job);
+		//    return CreatedAtAction(nameof(GetJob), new { id = job.JobID }, job);
+		//}
+
+		[HttpPut("{id}")]
         public IActionResult UpdateJob(int id, [FromBody] JobInfo job)
         {
             var existingJob = jobs.Find(j => j.JobID == id);

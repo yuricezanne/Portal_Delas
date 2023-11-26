@@ -7,6 +7,19 @@
 
 <div class="text-center">
     <h5>Listed Events</h5>
+
+    <form method="get" action="@Url.Action("ApplyEvent", "Home")">
+        <label for="eventFilter">Filter by Event Type:</label>
+        <select id="eventFilter" name="eventFilter">
+            <option value="">All Event Types</option>
+            @foreach (var eventType in Model.Select(item => item.EventType).Distinct())
+            {
+                <option value="@eventType">@eventType</option>
+            }
+        </select>
+        <button type="submit">Apply Filter</button>
+    </form>
+
     <table class="table">
         <thead>
             <tr>
@@ -37,7 +50,6 @@
                     <td>
                         <span>@item.EventType</span>
                     </td>
-               
                 </tr>
             }
         </tbody>
