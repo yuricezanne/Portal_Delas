@@ -47,7 +47,7 @@ namespace UI.Controllers
 
 			_gateway.CreateNewVaga(jobinfo.JobTitle, jobinfo.JobDescription, jobinfo.JobAddress, jobinfo.JobCategory);
 			var model = new LoginResultModel { LoginType = "I am a Company" };
-			return View("../Home/Index", model);
+			return View("../Home/PostHistory", model);
 			//try
 			//{
 

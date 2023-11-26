@@ -1,0 +1,62 @@
+﻿@using Core.Models
+@model List<EventInfo>
+
+@{
+	ViewData["Title"] = "EventHistory";
+}
+
+<div class="text-center">
+
+
+
+	<h5>Minhas Vagas</h5>
+
+	<table class="table">
+		<thead>
+			<tr>
+		
+				<th>EventTitle</th>
+				<th>Data do Evento</th>
+				<th>Tipo de Evento</th>
+				<th>Sítio</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+
+					<td>
+						<span>@item.EventTitle</span>
+					</td>
+					<td>
+						<span>@item.EventDate</span>
+					</td>
+					<td>
+						<span>@item.EventType</span>
+					</td>
+					<td>
+						<span>@item.EventAddress</span>
+					</td>
+					<td class="actions">
+						<a asp-controller="EventInfo" asp-action="EditEvent" asp-route-id="@item.EventID" class="btn btn-primary">Edit</a>
+						<a asp-controller="EventInfo" asp-action="DetailsEvent" asp-route-id="@item.EventID" class="btn btn-primary">Details</a>
+						<a asp-controller="EventInfo" asp-action="DeleteEvent" asp-route-id="@item.EventID" class="btn btn-danger">Delete</a>
+					</td>
+
+				</tr>
+
+			}
+		</tbody>
+	</table>
+
+</div>
+
+<div class="mb-3">
+	<input class="btn btn-primary" value="Return" onclick="history.go(-1);return false;">
+</div>
+
+<div class="mb-3">
+	<a asp-controller="Home" asp-action="CreateEvent" class="btn btn-primary">Create New Event</a>
+</div>

@@ -5,19 +5,21 @@ using Microsoft.AspNetCore.Mvc;
 namespace UI.Controllers
 {
 
-    public class EventInfoController : ControllerBase
-    {
-        private readonly PortalDbContext _context;
-        private readonly Gateway _gateway;
+	public class EventInfoController : Controller
+	{
+		private readonly PortalDbContext _context;
+		private readonly Gateway _gateway;
+		private readonly ILogger<EventInfoController> _logger;
 
 
-        public EventInfoController(PortalDbContext context, Gateway gateway)
-        {
-            _gateway = gateway;
-            _context = context;
-        }
-        // Simulação de uma lista de eventos para exemplo
-        private static List<EventInfo> eventos = new List<EventInfo>
+		public EventInfoController(ILogger<EventInfoController> logger, PortalDbContext context, Gateway gateway)
+		{
+			_logger = logger;
+			_context = context;
+			_gateway = gateway;
+		}
+		// Simulação de uma lista de eventos para exemplo
+		private static List<EventInfo> eventos = new List<EventInfo>
         {
             new EventInfo
             {
@@ -62,8 +64,8 @@ namespace UI.Controllers
         public async Task<IActionResult> CreateEvent(EventInfo eventinfo)
         {
 
-            _gateway.CreateNewEvento(eventinfo.EventTitle, eventinfo.EventDate, eventinfo.EventAddress, eventinfo.EventDescription, eventinfo.EventType);
-            return RedirectToAction("Index", "Home");
+            _gateway.CreateNewEvento(eventinfo.EventTitle, eventinfo.EventDate, eventinfo.EventDescription, eventinfo.EventAddress, eventinfo.EventType);
+            return RedirectToAction("EventHistory", "Home");
         }
 
         [HttpPut("{id}")]
@@ -96,5 +98,51 @@ namespace UI.Controllers
             eventos.Remove(evento);
             return NoContent();
         }
-    }
+
+		[HttpGet]
+		public IActionResult EditEvent(int id)
+		{
+
+			var findItem = _gateway.AccessEvento(id);
+
+			if (findItem != null)
+			{
+				return View(findItem);
+			}
+			return NotFound();
+
+
+		}
+
+		[HttpPost]
+		public IActionResult EditEvent(int id, EventInfo updatedEvent)
+		{
+			_gateway.EditEvento(id, updatedEvent);
+			_logger.LogInformation("Evento id " + id + " editado!");
+			return RedirectToAction("EventHistory", "Home");
+		}
+
+		[HttpGet]
+		public IActionResult DetailsEvent(int id)
+		{
+			var findItem = _gateway.DetailsEvento(id);
+
+			if (findItem != null)
+			{
+				return View(findItem);
+			}
+			return NotFound();
+
+		}
+
+		[HttpGet]
+		public IActionResult DeleteEvent(int id)
+		{
+			_gateway.DeleteEvento(id);
+			_logger.LogInformation("Evento excluído!");
+			return RedirectToAction("EventHistory", "Home");
+
+		}
+
+	}
 }

@@ -1,14 +1,14 @@
 ﻿﻿@using Core.Models;
 @using Portal_Delas.Models;
 @using Core.Data;
-@model JobInfo
+@model EventInfo
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 
-	ViewData["Title"] = "DetailsJob";
+	ViewData["Title"] = "DetailsEvent";
 
 }
 
@@ -21,42 +21,42 @@
 				Id
 			</dt>
 			<dd>
-				@Model.JobID
+				@Model.EventID
 			</dd>
 			<dt>
 				Date
 			</dt>
 			<dd>
-				@Model.JobCreationDate
+				@Model.EventDate
 			</dd>
 			<dt>
 				Title
 			</dt>
 			<dd>
-				@Model.JobTitle
+				@Model.EventTitle
 			</dd>
 			<dt>
 				Description
 			</dt>
 			<dd>
-				@Model.JobDescription
+				@Model.EventDescription
 			</dd>
 			<dt>
 				Address
 			</dt>
 			<dd>
-				@Model.JobAddress
+				@Model.EventAddress
 			</dd>
 			<dt>
-				Category
+				Type
 			</dt>
 			<dd>
-				@Model.JobCategory
+				@Model.EventType
 			</dd>
 			<div class="form-group">
-				<a asp-controller="JobInfo" asp-action="EditJob" asp-route-id="@Model.JobID" class="btn btn-primary">Edit</a>
-				 <a asp-controller="Home" asp-action="PostHistory" class="btn btn-secondary">Back to List</a>
-				 <a asp-controller="JobInfo" asp-action="DeleteJob" asp-route-id="@Model.JobID" class="btn btn-danger">Delete</a>
+				<a asp-controller="EventInfo" asp-action="EditEvent" asp-route-id="@Model.EventID" class="btn btn-primary">Edit</a>
+				 <a asp-controller="Home" asp-action="EventHistory" class="btn btn-secondary">Back to List</a>
+				 <a asp-controller="EventInfo" asp-action="DeleteEvent" asp-route-id="@Model.EventID" class="btn btn-danger">Delete</a>
 			</div>
 		</dl>
 	</div>

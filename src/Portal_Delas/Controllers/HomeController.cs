@@ -55,7 +55,13 @@ namespace Portal_Delas.Controllers
             return View(minhasVagas);
         }
 
-        public IActionResult ApplyJob()
+		public IActionResult EventHistory()
+		{
+			var meuEventos = _context.Events.ToList();
+			return View(meuEventos);
+		}
+
+		public IActionResult ApplyJob()
         {
             var minhasVagas = _context.Jobs.ToList();
             var vagasFinais = new List<JobEventUserInfoModel>();

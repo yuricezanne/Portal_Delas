@@ -135,19 +135,19 @@ namespace Core.Data
             _context.Events.Add(newItem);
             _context.SaveChanges();
         }
-        public void DeleteEvento(int EventId)
-        {
-            var findItem = _context.Events
-                 .Where(x => x.EventID == EventId)
-                 .FirstOrDefault();
+		public void DeleteEvento(int EventID)
+		{
+			var findItem = _context.Events
+				 .Where(x => x.EventID == EventID)
+				 .FirstOrDefault();
 
-            if (findItem != null)
-            {
-                _context.Events.Remove(findItem);
-                _context.SaveChanges();
-            }
-        }
-        public void DesativarEvento(int EventId)
+			if (findItem != null)
+			{
+				_context.Events.Remove(findItem);
+				_context.SaveChanges();
+			}
+		}
+		public void DesativarEvento(int EventId)
         {
             var findItem = _context.Events
                  .Where(x => x.EventID == EventId)
@@ -168,7 +168,12 @@ namespace Core.Data
             return _context.Jobs.FirstOrDefault(x => x.JobID == id);
         }
 
-        public void EditVaga(int id, JobInfo updatedJob)
+		public EventInfo AccessEvento(int id)
+		{
+			return _context.Events.FirstOrDefault(x => x.EventID == id);
+		}
+
+		public void EditVaga(int id, JobInfo updatedJob)
         {
             var existingJob = _context.Jobs.FirstOrDefault(x => x.JobID == id);
 
@@ -186,5 +191,32 @@ namespace Core.Data
             }
         }
 
-    }
+		public void EditEvento(int id, EventInfo updatedEvent)
+		{
+			var existingEvent = _context.Events.FirstOrDefault(x => x.EventID == id);
+
+			if (existingEvent != null)
+			{
+				// Atualize as propriedades do trabalho existente com os valores do trabalho atualizado
+				existingEvent.EventTitle = updatedEvent.EventTitle;
+				existingEvent.EventDescription = updatedEvent.EventDescription;
+				existingEvent.EventAddress = updatedEvent.EventAddress;
+				existingEvent.EventType = updatedEvent.EventType;
+				// Atualize outras propriedades conforme necessário...
+
+				// Salve as alterações no contexto do banco de dados
+				_context.SaveChanges();
+			}
+		}
+
+		public EventInfo DetailsEvento(int EventID)
+		{
+			var findItem = _context.Events
+				.Where(x => x.EventID == EventID)
+				.FirstOrDefault();
+
+			return findItem;
+		}
+
+	}
 }
