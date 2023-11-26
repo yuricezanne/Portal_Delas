@@ -108,6 +108,7 @@ namespace Core.Data
             _context.SaveChanges();
         }
 
+
         public void CreateNewEvento(string title, DateTime dateTime, string description, string address, string eventType)
         {
 

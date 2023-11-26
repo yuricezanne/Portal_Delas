@@ -2,6 +2,7 @@
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Portal_Delas.Controllers;
 
 namespace UI.Controllers
 {
@@ -10,12 +11,14 @@ namespace UI.Controllers
     {
         private readonly PortalDbContext _context;
         private readonly Gateway _gateway;
+        private readonly ILogger<JobInfoController> _logger;
 
 
-        public JobInfoController(PortalDbContext context, Gateway gateway)
+        public JobInfoController(ILogger<JobInfoController> logger, PortalDbContext context, Gateway gateway)
         {
-            _gateway = gateway;
+            _logger = logger;
             _context = context;
+            _gateway = gateway;
         }
         // Simulação de uma lista de trabalhos para exemplo
         private static List<JobInfo> jobs = new List<JobInfo>
@@ -113,6 +116,16 @@ namespace UI.Controllers
 
             jobs.Remove(job);
             return NoContent();
+        }
+
+        [HttpGet]
+        public IActionResult CheckJob(int id)
+        {
+
+            _gateway.DesativarVaga(id);
+            _logger.LogInformation("Status da tarefa id " + id + " alterado!");
+            return RedirectToAction("PostHistory");
+
         }
     }
 }

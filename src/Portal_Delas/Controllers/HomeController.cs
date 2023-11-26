@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Portal_Delas.Models;
 using System.Diagnostics;
 
@@ -6,11 +8,15 @@ namespace Portal_Delas.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly PortalDbContext _context;
+        private readonly Gateway _gateway;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, PortalDbContext context, Gateway gateway)
         {
             _logger = logger;
+            _context = context;
+            _gateway = gateway;
         }
 
         public IActionResult Index()
@@ -40,6 +46,13 @@ namespace Portal_Delas.Controllers
         public IActionResult CreateEvent()
         {
             return View();
+        }
+
+        public IActionResult PostHistory()
+        {
+
+            var minhasVagas = _context.Jobs.ToList();
+            return View(minhasVagas);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
