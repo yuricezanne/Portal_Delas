@@ -16,29 +16,28 @@
         <form method="post" asp-controller="EventInfo" asp-action="CreateEvent">
 
             <div class="form-group">
-                <label asp-for="@Model.EventTitle" class="control-label"></label>
+                <label asp-for="@Model.EventTitle" class="control-label">Event Title</label>
                 <input asp-for="@Model.EventTitle" class="form-control" />
                 <span asp-validation-for="@Model.EventTitle" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="@Model.EventDate" class="control-label"></label>
+                <label asp-for="@Model.EventDate" class="control-label">Event Date</label>
                 <input asp-for="@Model.EventDate" class="form-control" />
                 <span asp-validation-for="@Model.EventDate" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="@Model.EventDescription" class="control-label"></label>
+                <label asp-for="@Model.EventDescription" class="control-label">Event Description</label>
                 <input asp-for="@Model.EventDescription" class="form-control" />
                 <span asp-validation-for="@Model.EventDescription" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="@Model.EventAddress" class="control-label"></label>
+            <div class="form-group mb-3">
+                <label asp-for="@Model.EventAddress" class="control-label">Event Address</label>
                 <input asp-for="@Model.EventAddress" class="form-control" />
                 <span asp-validation-for="@Model.EventAddress" class="text-danger"></span>
             </div>
-
 
             <div class="form-floating mb-3">
                 <select asp-for="EventType" class="form-control" placeholder="Select one">
@@ -48,11 +47,11 @@
                     <option>Others</option>
                 </select>
             </div>
-            <div>
+            <div class="mb-3">
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
             </div>
-            <div>
-                <input type="button" value="Cancel" onclick="history.go(-1);return false;">
+            <div class="mb-3">
+                <input class="btn btn-primary" value="Cancel" onclick="history.go(-1);return false;">
             </div>
         </form>
     </div>

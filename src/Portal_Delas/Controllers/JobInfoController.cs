@@ -1,8 +1,6 @@
 ﻿using Core.Data;
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Portal_Delas.Controllers;
 
 namespace UI.Controllers
 {
@@ -12,7 +10,6 @@ namespace UI.Controllers
         private readonly PortalDbContext _context;
         private readonly Gateway _gateway;
         private readonly ILogger<JobInfoController> _logger;
-
 
         public JobInfoController(ILogger<JobInfoController> logger, PortalDbContext context, Gateway gateway)
         {
@@ -42,26 +39,13 @@ namespace UI.Controllers
         };
 
         [HttpPost]
-		public IActionResult CreateJob(JobInfo jobinfo)
-		{
+        public IActionResult CreateJob(JobInfo jobinfo)
+        {
 
-			_gateway.CreateNewVaga(jobinfo.JobTitle, jobinfo.JobDescription, jobinfo.JobAddress, jobinfo.JobCategory);
-			var model = new LoginResultModel { LoginType = "I am a Company" };
-			return View("../Home/PostHistory", model);
-			//try
-			//{
-
-			//}
-			//catch (DbUpdateException)
-			//{
-			//    return RedirectToAction("Login", "UserInfo");
-			//}
-
-			//return RedirectToAction("Login", "UserInfo");
-		}
-
-
-
+            _gateway.CreateNewVaga(jobinfo.JobTitle, jobinfo.JobDescription, jobinfo.JobAddress, jobinfo.JobCategory);
+            var model = new LoginResultModel { LoginType = "I am a Company" };
+            return View("../Home/Index", model);
+        }
 
         [HttpGet]
         public IActionResult GetJobs()
@@ -79,14 +63,6 @@ namespace UI.Controllers
             }
             return Ok(job);
         }
-
-        //[HttpPost]
-        //public IActionResult CreateJob([FromBody] JobInfo job)
-        //{
-        //    job.JobID = jobs.Count + 1;
-        //    jobs.Add(job);
-        //    return CreatedAtAction(nameof(GetJob), new { id = job.JobID }, job);
-        //}
 
         [HttpPut("{id}")]
         public IActionResult UpdateJob(int id, [FromBody] JobInfo job)
@@ -110,10 +86,8 @@ namespace UI.Controllers
 		{
 				_gateway.DeleteVaga(id);
 				_logger.LogInformation("Vaga excluída!");
-				return RedirectToAction("PostHistory", "Home");
-		
+				return RedirectToAction("PostHistory", "Home");		
 		}
-
 
 		[HttpGet]
         public IActionResult CheckJob(int id)
@@ -125,17 +99,14 @@ namespace UI.Controllers
 
         [HttpGet]
         public IActionResult EditJob(int id)
-        {
-           
-                var findItem = _gateway.AccessVaga(id);
+        {           
+            var findItem = _gateway.AccessVaga(id);
 
             if (findItem != null)
             {
                 return View(findItem);
             }
             return NotFound();
-
-
         }
 
         [HttpPost]
@@ -146,7 +117,6 @@ namespace UI.Controllers
             return RedirectToAction("PostHistory", "Home");
         }
 
-
 		[HttpGet]
 		public IActionResult DetailsJob(int id)
 		{
@@ -156,8 +126,7 @@ namespace UI.Controllers
 				{
 					return View(findItem);
 				}
-				return NotFound();
-			
+				return NotFound();			
 		}
 	}
 }

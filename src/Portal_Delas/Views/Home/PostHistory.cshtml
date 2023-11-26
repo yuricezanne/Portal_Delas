@@ -7,17 +7,14 @@
 
 <div class="text-center">
 
-
-
-	<h5>Minhas Vagas</h5>
+	<h5>My Job offers</h5>
 
 	<table class="table">
 		<thead>
 			<tr>
-				@* <th>Concluído</th>*@
-				<th>JobTitle</th>
-				<th>Data de Criação</th>
-				<th>Categoria</th>
+				<th>Job Title</th>
+				<th>Creation Date</th>
+				<th>Category</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -25,11 +22,6 @@
 			@foreach (var item in Model)
 			{
 				<tr>
-					@*<td>
-				<input type="checkbox" checked="@item.IsInativo" onclick="window.location.href='CheckJob/@item.JobID'" />
-
-				</td>*@
-
 					<td>
 						<span>@item.JobTitle</span>
 					</td>
@@ -44,13 +36,10 @@
 						<a asp-controller="JobInfo" asp-action="DetailsJob" asp-route-id="@item.JobID" class="btn btn-primary">Details</a>
 						<a asp-controller="JobInfo" asp-action="DeleteJob" asp-route-id="@item.JobID" class="btn btn-danger">Delete</a>
 					</td>
-
 				</tr>
-
 			}
 		</tbody>
 	</table>
-
 </div>
 
 <div class="mb-3">

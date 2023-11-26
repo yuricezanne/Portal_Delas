@@ -1,7 +1,6 @@
 ﻿using Core.Data;
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Portal_Delas.Models;
 using System.Diagnostics;
 
@@ -78,7 +77,6 @@ namespace Portal_Delas.Controllers
                     JobCategory = vaga.JobCategory,
                 });
             }
-
             return View(vagasFinais);
         }
 

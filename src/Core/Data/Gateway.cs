@@ -1,10 +1,4 @@
 ﻿using Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.Data
 {
@@ -52,20 +46,6 @@ namespace Core.Data
 
         public void CreateNewVaga(string title, string description, string address, string categoryName)
         {
-
-            //var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
-            //// Verifica se a categoria já existe no banco de dados
-            //JobCategory category = _context.Categories.FirstOrDefault(c => c.CategoryName == CategoryName);
-
-            //// Se a categoria não existir, cria uma nova
-            //if (category == null)
-            //{
-            //    category = new JobCategory { CategoryName = CategoryName };
-            //    _context.Categories.Add(category);
-            //    _context.SaveChanges();
-            //}
-
-            //// Cria o novo trabalho associado à categoria
             JobInfo newItem = new JobInfo
             {
                 JobCreationDate = DateTime.Now,
@@ -76,7 +56,6 @@ namespace Core.Data
                 IsInativo = true,
                 CreatedByUserId = 1        
             };
-
             _context.Jobs.Add(newItem);
             _context.SaveChanges();
         }
@@ -104,7 +83,6 @@ namespace Core.Data
                 findItem.IsInativo = !findItem.IsInativo;
                 findItem.JobCreationDate = DateTime.Now;
             }
-
             _context.SaveChanges();
         }
 
@@ -119,7 +97,6 @@ namespace Core.Data
 
 		public void CreateNewEvento(string title, DateTime dateTime, string description, string address, string eventType)
         {
-
             EventInfo newItem = new EventInfo
             {
                 EventCreationDate = DateTime.Now,
@@ -158,7 +135,6 @@ namespace Core.Data
                 findItem.IsInativo = !findItem.IsInativo;
                 findItem.EventCreationDate = DateTime.Now;
             }
-
             _context.SaveChanges();
         }
 
@@ -217,6 +193,5 @@ namespace Core.Data
 
 			return findItem;
 		}
-
 	}
 }

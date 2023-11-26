@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    [Migration("20231126102421_testeyuri")]
+    [Migration("20231126222741_testeyuri")]
     partial class testeyuri
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

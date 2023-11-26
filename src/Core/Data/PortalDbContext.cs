@@ -17,15 +17,12 @@ namespace Core.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-          
             // Configurando a relação entre JobInfo e UserInfo
             modelBuilder.Entity<JobInfo>()
                 .HasOne(j => j.CreatedByUser)
                 .WithMany(u => u.CreatedJobs)
                 .HasForeignKey(j => j.CreatedByUserId)
                 .OnDelete(DeleteBehavior.Restrict);
-
 
             // Configurando a relação entre EventInfo e UserInfo (criador do evento)
             modelBuilder.Entity<EventInfo>()
@@ -34,6 +31,5 @@ namespace Core.Data
                 .HasForeignKey(e => e.CreatedByUserId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
-
     }
 }

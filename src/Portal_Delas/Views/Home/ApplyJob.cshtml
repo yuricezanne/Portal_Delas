@@ -37,15 +37,25 @@
 					<td>
 						<span>@item.JobCategory</span>
 					</td>
-					<td>
-						<button type="submit">Apply</button>
-					</td>
+                    <form id="myForm">
+                    <td>
+                        <button type="button" onclick="printMessage()">Apply</button>
+                    </td>
+                    </form>
 				</tr>
 			}
 		</tbody>
 	</table>
 </div>
 
-<div>
-	<input type="button" value="Return" onclick="history.go(-1);return false;">
+<div class="mb-3">
+    <input class="btn btn-primary" value="Return" onclick="history.go(-1);return false;">
 </div>
+
+@section scripts {
+    <script>
+        function printMessage() {
+            alert('Applied successfully');
+        }
+    </script>
+}

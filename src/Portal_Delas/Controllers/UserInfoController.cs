@@ -1,6 +1,5 @@
 ﻿using Core.Data;
 using Core.Models;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -144,9 +143,6 @@ namespace UI.Controllers
             HttpContext.Session.Remove("UserId");
 
             return RedirectToAction("Login", "UserInfo");
-        }
-
-        
-        
+        }     
     }
 }

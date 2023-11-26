@@ -11,7 +11,6 @@ namespace UI.Controllers
 		private readonly Gateway _gateway;
 		private readonly ILogger<EventInfoController> _logger;
 
-
 		public EventInfoController(ILogger<EventInfoController> logger, PortalDbContext context, Gateway gateway)
 		{
 			_logger = logger;
@@ -110,8 +109,6 @@ namespace UI.Controllers
 				return View(findItem);
 			}
 			return NotFound();
-
-
 		}
 
 		[HttpPost]
@@ -132,7 +129,6 @@ namespace UI.Controllers
 				return View(findItem);
 			}
 			return NotFound();
-
 		}
 
 		[HttpGet]
@@ -141,8 +137,6 @@ namespace UI.Controllers
 			_gateway.DeleteEvento(id);
 			_logger.LogInformation("Evento excluído!");
 			return RedirectToAction("EventHistory", "Home");
-
 		}
-
 	}
 }

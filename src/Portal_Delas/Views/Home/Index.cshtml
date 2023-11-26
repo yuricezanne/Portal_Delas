@@ -14,7 +14,6 @@
 {
     if (Model.LoginType.Equals("I am a Company"))
     {
-        <p>Welcome</p>
 				<div class="mb-3">
     <a asp-controller="Home" asp-action="CreateJob" class="btn btn-secondary">Create a Job</a>
 	</div>
@@ -30,15 +29,15 @@
     }
     else
     {
-        <p>Welcome</p>
 		<div class="mb-3">
 	 <a asp-controller="Home" asp-action="ApplyJob" class="btn btn-secondary">Apply to a Job</a>
 		</div>
 		<div class="mb-3">
     <a asp-controller="Home" asp-action="ApplyEvent" class="btn btn-secondary">Apply to an Event</a>
 		</div>
-
-        <p>Check your applied history</p>
+        <div class="mb-3">
+        <input class="btn btn-secondary" id="applyButton" value="Check your history" onclick="printMessage()">
+        </div>
     }
 }
 else
@@ -46,4 +45,12 @@ else
     <p>Bem Vinda ao Portal Delas/Welcome to Portal Delas!</p>
     <p>Crie uma conta ou faça login para continuar.</p>
     <p>Create your account or login to continue.</p>
+}
+
+@section scripts {
+    <script>
+        document.getElementById('applyButton').addEventListener('click', function () {
+            alert('This section is under construction');
+        });
+    </script>
 }
