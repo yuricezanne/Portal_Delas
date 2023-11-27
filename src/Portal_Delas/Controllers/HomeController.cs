@@ -60,9 +60,16 @@ namespace Portal_Delas.Controllers
 			return View(meuEventos);
 		}
 
-		public IActionResult ApplyJob()
+        public IActionResult ApplyJob(string categoryFilter)
         {
             var minhasVagas = _context.Jobs.ToList();
+
+            // Se um filtro de categoria for fornecido, filtre as vagas com base na categoria
+            if (!string.IsNullOrEmpty(categoryFilter))
+            {
+                minhasVagas = minhasVagas.Where(j => j.JobCategory == categoryFilter).ToList();
+            }
+
             var vagasFinais = new List<JobEventUserInfoModel>();
 
             foreach (var vaga in minhasVagas)
@@ -80,16 +87,16 @@ namespace Portal_Delas.Controllers
             return View(vagasFinais);
         }
 
-        public IActionResult ApplyEvent()
+        public IActionResult ApplyEvent(string eventFilter)
         {
             var myEvents = _context.Events.ToList();
-            return View(myEvents);
-        }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            // Se um filtro de evento for fornecido, filtre os eventos com base no tipo de evento
+            if (!string.IsNullOrEmpty(eventFilter))
+            {
+                myEvents = myEvents.Where(e => e.EventType == eventFilter).ToList();
+            }
+            return View(myEvents);
         }
     }
 }
